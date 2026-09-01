@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumática Industrial | Soluções em Automação & Pronta Entrega</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#004B87',
+                        brandOrange: '#FF6B00',
+                        industrialDark: '#1A202C',
+                        industrialGray: '#F4F6F8'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased">
 
+    <div class="bg-industrialDark text-white text-xs md:text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span><i class="fa-solid fa-bolt text-brandOrange mr-2"></i><strong>Fábrica Parada?</strong> Atendimento emergencial e envio no mesmo dia.</span>
+            <a href="https://wa.me/5500000000000" target="_blank" class="text-brandOrange hover:underline font-bold flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp"></i> Plantão Técnico
+            </a>
+        </div>
+    </div>
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-brandBlue tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-gears text-brandOrange"></i> PNEUMÁTICA<span class="text-industrialDark">PRO</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8 font-semibold text-gray-700">
+                <a href="#home" class="hover:text-brandBlue transition">Início</a>
+                <a href="#produtos" class="hover:text-brandBlue transition">Produtos</a>
+                <a href="#diferenciais" class="hover:text-brandBlue transition">Diferenciais</a>
+                <a href="#cotacao" class="hover:text-brandBlue transition">Solicitar Cotação</a>
+            </nav>
+
+            <a href="#cotacao" class="bg-brandOrange hover:bg-orange-600 text-white font-bold py-2 px-5 rounded-lg transition shadow-md">
+                Cotar Agora
+            </a>
+        </div>
+    </header>
+
+    <section id="home" class="bg-gradient-to-r from-industrialDark to-brandBlue text-white py-20 px-4">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="bg-brandOrange text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Alta Durabilidade & Precisão</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-6 leading-tight">
+                    Equipamentos Pneumáticos com Pronta Entrega e Zero Downtime.
+                </h1>
+                <p class="text-lg text-gray-200 mb-8">
+                    Cilindros, válvulas e preparação de ar para manter sua linha de produção rodando sem interrupções não planejadas.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#cotacao" class="bg-brandOrange hover:bg-orange-600 text-white text-center font-bold py-4 px-8 rounded-lg text-lg transition shadow-lg">
+                        Solicitar Cotação Rápida
+                    </a>
+                    <a href="#produtos" class="border-2 border-white hover:bg-white hover:text-industrialDark text-center font-bold py-4 px-8 rounded-lg text-lg transition">
+                        Ver Catálogo
+                    </a>
+                </div>
+            </div>
+            <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/20 text-center">
+                <i class="fa-solid fa-industry text-8xl text-brandOrange mb-4"></i>
+                <h3 class="text-2xl font-bold mb-2">Suporte Técnico Especializado</h3>
+                <p class="text-gray-300">Envie o código da peça ou o desenho técnico. Nossos engenheiros especificam a solução ideal para seu processo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="produtos" class="py-16 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-industrialDark">Linha Completa de Componentes</h2>
+            <p class="text-gray-600 mt-2">Tecnologia industrial projetada para suportar ambientes severos.</p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
+                    <i class="fa-solid fa-compress"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-2">Cilindros Pneumáticos</h3>
+                <p class="text-gray-600 text-sm mb-4">Modelos ISO 15552, compactos, guiados e sem haste com vedações de alta performance.</p>
+                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-2">Válvulas Direcionais</h3>
+                <p class="text-gray-600 text-sm mb-4">Eletroválvulas, atuadas por ar e manuais. Blocos manifold customizados.</p>
+                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-2">Preparação de Ar (FRL)</h3>
+                <p class="text-gray-600 text-sm mb-4">Filtros, reguladores e lubrificadores para garantir a pureza do ar comprimido.</p>
+                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
+                    <i class="fa-solid fa-diagram-project"></i>
+                </div>
+                <h3 class="font-bold text-xl mb-2">Conexões e Tubos</h3>
+                <p class="text-gray-600 text-sm mb-4">Conexões instantâneas em latão niquelado/inox e tubos de poliuretano (PU).</p>
+                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="cotacao" class="bg-industrialGray py-16 px-4">
+        <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-200">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-industrialDark">Solicite sua Cotação Industrial</h2>
+                <p class="text-gray-600 mt-2">Preencha os dados abaixo para receber uma proposta comercial em até 2 horas úteis.</p>
+            </div>
+
+            <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Nome Completo *</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Ex: João Silva">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">E-mail Corporativo *</label>
+                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="joao@suaempresa.com.br">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Empresa / CNPJ *</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Nome da empresa ou CNPJ">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Telefone / WhatsApp *</label>
+                        <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Código da Peça ou Descrição do Item</label>
+                    <textarea rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Informe os códigos dos componentes, quantidades e especificações técnicas necessárias..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Anexar Desenho Técnico ou Foto da Peça (Opcional)</label>
+                    <input type="file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-brandBlue hover:file:bg-blue-100">
+                </div>
+
+                <button type="submit" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-4 rounded-lg text-lg transition shadow-md">
+                    Enviar Pedido de Cotação
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-industrialDark text-gray-400 py-12 px-4 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="text-2xl font-black text-white mb-4">
+                    PNEUMÁTICA<span class="text-brandOrange">PRO</span>
+                </div>
+                <p class="text-sm">Fornecendo soluções de alta performance em automação pneumática para indústrias em todo o Brasil.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Atendimento Comercial</h4>
+                <p class="text-sm mb-2"><i class="fa-solid fa-phone mr-2 text-brandOrange"></i> (00) 0000-0000</p>
+                <p class="text-sm mb-2"><i class="fa-solid fa-envelope mr-2 text-brandOrange"></i> vendas@pneumaticapro.com.br</p>
+                <p class="text-sm"><i class="fa-solid fa-location-dot mr-2 text-brandOrange"></i> Distrito Industrial - SP</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Horário de Funcionamento</h4>
+                <p class="text-sm mb-2">Segunda a Sexta: 08:00 - 18:00</p>
+                <p class="text-sm text-brandOrange font-semibold">Plantão 24h para Emergências Industriais</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto border-t border-gray-800 mt-8 pt-6 text-center text-xs">
+            &copy; 2026 PneumáticaPro. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5500000000000" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-xl z-50 transition">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
