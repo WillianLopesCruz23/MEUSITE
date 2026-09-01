@@ -1,203 +1,747 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Metadados SEO e Open Graph -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pneumática Industrial | Soluções em Automação & Pronta Entrega</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandBlue: '#004B87',
-                        brandOrange: '#FF6B00',
-                        industrialDark: '#1A202C',
-                        industrialGray: '#F4F6F8'
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="description" content="A KLAMSTUP desenvolve soluções de visão computacional, controle de qualidade automatizado, automação, eletrônica e engenharia mecatrônica para a Indústria 4.0.">
+    <meta name="keywords" content="visão computacional industrial, inspeção automatizada, controle de qualidade automatizado, automação industrial, indústria 4.0, engenharia mecatrônica, programação de CLP, CAD 3D, eletrônica industrial, inspeção visual automática">
+    <meta name="author" content="KLAMSTUP Engenharia Mecatrônica">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="KLAMSTUP | Visão Computacional e Automação Industrial">
+    <meta property="og:description" content="Engenharia Mecatrônica Inteligente para a Indústria 4.0. Reduza desperdícios e automatize a qualidade na sua fábrica.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://klamstup.com.br">
+    <meta property="og:image" content="assets/images/og-image.png">
+
+    <title>KLAMSTUP | Visão Computacional e Automação Industrial</title>
+
+    <!-- Fontes e Ícones -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos do Projeto -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-800 antialiased">
+<body>
 
-    <div class="bg-industrialDark text-white text-xs md:text-sm py-2 px-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <span><i class="fa-solid fa-bolt text-brandOrange mr-2"></i><strong>Fábrica Parada?</strong> Atendimento emergencial e envio no mesmo dia.</span>
-            <a href="https://wa.me/5500000000000" target="_blank" class="text-brandOrange hover:underline font-bold flex items-center gap-1">
-                <i class="fa-brands fa-whatsapp"></i> Plantão Técnico
+    <!-- Header / Navegação Sticky -->
+    <header id="header" class="header-sticky">
+        <div class="container header-container">
+            <a href="#hero" class="logo" aria-label="KLAMSTUP Home">
+                <span class="logo-text">KLAMSTUP</span>
+                <span class="logo-dot"></span>
             </a>
-        </div>
-    </div>
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black text-brandBlue tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-gears text-brandOrange"></i> PNEUMÁTICA<span class="text-industrialDark">PRO</span>
-            </div>
-            
-            <nav class="hidden md:flex space-x-8 font-semibold text-gray-700">
-                <a href="#home" class="hover:text-brandBlue transition">Início</a>
-                <a href="#produtos" class="hover:text-brandBlue transition">Produtos</a>
-                <a href="#diferenciais" class="hover:text-brandBlue transition">Diferenciais</a>
-                <a href="#cotacao" class="hover:text-brandBlue transition">Solicitar Cotação</a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#hero" class="nav-link active">Início</a></li>
+                    <li><a href="#quem-somos" class="nav-link">Quem Somos</a></li>
+                    <li><a href="#solucoes" class="nav-link">Soluções</a></li>
+                    <li><a href="#visao-computacional" class="nav-link">Visão Computacional</a></li>
+                    <li><a href="#inovacao" class="nav-link">Inovação</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
             </nav>
 
-            <a href="#cotacao" class="bg-brandOrange hover:bg-orange-600 text-white font-bold py-2 px-5 rounded-lg transition shadow-md">
-                Cotar Agora
-            </a>
+            <div class="header-actions">
+                <a href="#contato" class="btn btn-primary btn-sm">Solicite um Orçamento</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
-    <section id="home" class="bg-gradient-to-r from-industrialDark to-brandBlue text-white py-20 px-4">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="bg-brandOrange text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Alta Durabilidade & Precisão</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-6 leading-tight">
-                    Equipamentos Pneumáticos com Pronta Entrega e Zero Downtime.
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container grid grid-2 items-center">
+            <div class="hero-content">
+                <div class="badge">
+                    <i class="fa-solid fa-microchip"></i> Indústria 4.0 & Mecatrônica
+                </div>
+                <h1 class="hero-title">
+                    Visão Inteligente.<br>
+                    Automação Precisa.<br>
+                    <span class="text-gradient">Indústria Mais Eficiente.</span>
                 </h1>
-                <p class="text-lg text-gray-200 mb-8">
-                    Cilindros, válvulas e preparação de ar para manter sua linha de produção rodando sem interrupções não planejadas.
+                <p class="hero-subtitle">
+                    A KLAMSTUP desenvolve sistemas de visão computacional, controle de qualidade automatizado e soluções mecatrônicas sob medida para transformar processos industriais.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#cotacao" class="bg-brandOrange hover:bg-orange-600 text-white text-center font-bold py-4 px-8 rounded-lg text-lg transition shadow-lg">
-                        Solicitar Cotação Rápida
-                    </a>
-                    <a href="#produtos" class="border-2 border-white hover:bg-white hover:text-industrialDark text-center font-bold py-4 px-8 rounded-lg text-lg transition">
-                        Ver Catálogo
-                    </a>
+                <div class="hero-buttons">
+                    <a href="#contato" class="btn btn-primary">Solicite um Orçamento de Automação</a>
+                    <a href="#solucoes" class="btn btn-secondary">Conheça nossas Soluções</a>
                 </div>
             </div>
-            <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/20 text-center">
-                <i class="fa-solid fa-industry text-8xl text-brandOrange mb-4"></i>
-                <h3 class="text-2xl font-bold mb-2">Suporte Técnico Especializado</h3>
-                <p class="text-gray-300">Envie o código da peça ou o desenho técnico. Nossos engenheiros especificam a solução ideal para seu processo.</p>
+
+            <div class="hero-visual">
+                <div class="inspection-card">
+                    <div class="card-header-tech">
+                        <span class="status-dot"></span> INSPEÇÃO EM TEMPO REAL — CAMERA 01
+                        <span class="fps-tag">60 FPS</span>
+                    </div>
+                    <div class="canvas-simulation">
+                        <!-- Representação Gráfica / Bounding Box do Sistema de Visão -->
+                        <div class="hud-overlay">
+                            <div class="hud-corner top-left"></div>
+                            <div class="hud-corner top-right"></div>
+                            <div class="hud-corner bottom-left"></div>
+                            <div class="hud-corner bottom-right"></div>
+                        </div>
+                        <div class="bounding-box">
+                            <span class="bbox-label">PEÇA_4821: APROVADA (99.8%)</span>
+                        </div>
+                        <i class="fa-solid fa-gear gear-rotating"></i>
+                        <div class="scan-line"></div>
+                    </div>
+                    <div class="card-analytics">
+                        <div class="metric">
+                            <span class="metric-label">STATUS</span>
+                            <span class="metric-value text-success">OK / CONFORME</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">DIMENSÃO</span>
+                            <span class="metric-value">45.02 mm</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">DEFEITOS</span>
+                            <span class="metric-value">0 DETECTADOS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="produtos" class="py-16 px-4 max-w-7xl mx-auto">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-industrialDark">Linha Completa de Componentes</h2>
-            <p class="text-gray-600 mt-2">Tecnologia industrial projetada para suportar ambientes severos.</p>
-        </div>
-
-        <div class="grid md:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
-                    <i class="fa-solid fa-compress"></i>
-                </div>
-                <h3 class="font-bold text-xl mb-2">Cilindros Pneumáticos</h3>
-                <p class="text-gray-600 text-sm mb-4">Modelos ISO 15552, compactos, guiados e sem haste com vedações de alta performance.</p>
-                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
+    <!-- Quem Somos -->
+    <section id="quem-somos" class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Engenharia que transforma desafios industriais em soluções inteligentes.</h2>
+                <p class="section-subtitle">
+                    A KLAMSTUP é uma startup de engenharia mecatrônica criada para desenvolver soluções tecnológicas capazes de resolver desafios reais da indústria. Nossa atuação combina engenharia mecânica, eletrônica, automação, programação e visão computacional para criar sistemas personalizados, confiáveis e preparados para as necessidades de cada processo.
+                </p>
             </div>
 
-            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
-                    <i class="fa-solid fa-sliders"></i>
+            <div class="grid grid-3 gap-8 mt-12">
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                    </div>
+                    <h3>Engenharia</h3>
+                    <p>Projetamos soluções considerando o processo, a aplicação e os requisitos técnicos do cliente.</p>
                 </div>
-                <h3 class="font-bold text-xl mb-2">Válvulas Direcionais</h3>
-                <p class="text-gray-600 text-sm mb-4">Eletroválvulas, atuadas por ar e manuais. Blocos manifold customizados.</p>
-                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
-            </div>
 
-            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
-                    <i class="fa-solid fa-wind"></i>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-cpu"></i>
+                    </div>
+                    <h3>Tecnologia</h3>
+                    <p>Integramos diferentes tecnologias para desenvolver sistemas inteligentes e automatizados.</p>
                 </div>
-                <h3 class="font-bold text-xl mb-2">Preparação de Ar (FRL)</h3>
-                <p class="text-gray-600 text-sm mb-4">Filtros, reguladores e lubrificadores para garantir a pureza do ar comprimido.</p>
-                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
-            </div>
 
-            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition">
-                <div class="w-12 h-12 bg-blue-100 text-brandBlue rounded-lg flex items-center justify-center mb-4 text-xl font-bold">
-                    <i class="fa-solid fa-diagram-project"></i>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3>Resultado</h3>
+                    <p>Nosso foco é gerar ganhos reais de produtividade, qualidade e eficiência.</p>
                 </div>
-                <h3 class="font-bold text-xl mb-2">Conexões e Tubos</h3>
-                <p class="text-gray-600 text-sm mb-4">Conexões instantâneas em latão niquelado/inox e tubos de poliuretano (PU).</p>
-                <a href="#cotacao" class="text-brandBlue font-bold text-sm hover:underline">Solicitar especificação &rarr;</a>
             </div>
         </div>
     </section>
 
-    <section id="cotacao" class="bg-industrialGray py-16 px-4">
-        <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-200">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-industrialDark">Solicite sua Cotação Industrial</h2>
-                <p class="text-gray-600 mt-2">Preencha os dados abaixo para receber uma proposta comercial em até 2 horas úteis.</p>
+    <!-- O Problema -->
+    <section id="problema" class="section">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <span class="badge-danger">DESAFIOS OPERACIONAIS</span>
+                <h2 class="section-title">Quanto sua empresa perde por não automatizar o controle de qualidade?</h2>
             </div>
 
-            <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Nome Completo *</label>
-                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Ex: João Silva">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">E-mail Corporativo *</label>
-                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="joao@suaempresa.com.br">
-                    </div>
+            <div class="grid grid-4 gap-6 mt-12">
+                <div class="problem-card">
+                    <i class="fa-solid fa-user-xmark problem-icon"></i>
+                    <h3>Inspeção Manual</h3>
+                    <p>Processos dependentes de operadores podem apresentar variações, fadiga e limitações severas de produtividade.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Empresa / CNPJ *</label>
-                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Nome da empresa ou CNPJ">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Telefone / WhatsApp *</label>
-                        <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="(00) 00000-0000">
-                    </div>
+                <div class="problem-card">
+                    <i class="fa-solid fa-rotate-left problem-icon"></i>
+                    <h3>Retrabalho</h3>
+                    <p>Falhas não identificadas no início do processo geram retrabalho e escalada direta dos custos operacionais.</p>
                 </div>
 
+                <div class="problem-card">
+                    <i class="fa-solid fa-trash-can problem-icon"></i>
+                    <h3>Desperdício</h3>
+                    <p>Produtos fora da especificação representam perda direta de matéria-prima, tempo de máquina e energia.</p>
+                </div>
+
+                <div class="problem-card">
+                    <i class="fa-solid fa-circle-exclamation problem-icon"></i>
+                    <h3>Falhas de Rastreabilidade</h3>
+                    <p>A ausência de dados consolidados em tempo real dificulta a análise de causas raiz e a melhoria contínua.</p>
+                </div>
+            </div>
+
+            <div class="banner-highlight mt-12">
+                <h3>A KLAMSTUP transforma essas dores em oportunidades de automação.</h3>
+                <a href="#contato" class="btn btn-primary mt-4">Solicite uma Análise Técnica</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soluções Mecatrônicas -->
+    <section id="solucoes" class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Soluções Mecatrônicas para desafios reais da indústria</h2>
+                <p class="section-subtitle">Desenvolvimento de ponta a ponta com rigor técnico e arquitetura personalizada.</p>
+            </div>
+
+            <div class="grid grid-2 gap-8 mt-12">
+                <!-- Solução 1 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <i class="fa-solid fa-cube solution-icon"></i>
+                        <div>
+                            <h3>Projetos Mecânicos e CAD 3D</h3>
+                            <span class="solution-sub">Desenvolvimento Estrutural e Mecânico</span>
+                        </div>
+                    </div>
+                    <p class="solution-desc">
+                        Desenvolvimento de máquinas, dispositivos, estruturas, mecanismos e sistemas mecânicos utilizando modelagem 3D avançada e engenharia aplicada.
+                    </p>
+                    <ul class="tag-list">
+                        <li>Modelagem 3D</li>
+                        <li>Dispositivos</li>
+                        <li>Projetos Mecânicos</li>
+                        <li>Estruturas</li>
+                        <li>Mecanismos</li>
+                        <li>Prototipagem</li>
+                    </ul>
+                    <a href="#contato" class="btn-link">Falar com Engenharia <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Solução 2 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <i class="fa-solid fa-microchip solution-icon"></i>
+                        <div>
+                            <h3>Eletrônica Dedicada</h3>
+                            <span class="solution-sub">Hardware e Sistemas Embarcados</span>
+                        </div>
+                    </div>
+                    <p class="solution-desc">
+                        Desenvolvimento de sistemas eletrônicos específicos para aplicações industriais, integração de sensores, acionamentos e dispositivos inteligentes.
+                    </p>
+                    <ul class="tag-list">
+                        <li>Desenvolvimento Eletrônico</li>
+                        <li>Sensores</li>
+                        <li>Interfaces</li>
+                        <li>Aquisição de Dados</li>
+                        <li>Controle</li>
+                        <li>Sistemas Embarcados</li>
+                    </ul>
+                    <a href="#contato" class="btn-link">Falar com Engenharia <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Solução 3 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <i class="fa-solid fa-network-wired solution-icon"></i>
+                        <div>
+                            <h3>Automação e Programação de CLP</h3>
+                            <span class="solution-sub">Controle Industrial e Processos</span>
+                        </div>
+                    </div>
+                    <p class="solution-desc">
+                        Desenvolvimento de sistemas de controle para máquinas e processos industriais, buscando segurança, estabilidade e alta eficiência operacional.
+                    </p>
+                    <ul class="tag-list">
+                        <li>Programação de CLP</li>
+                        <li>IHM</li>
+                        <li>Sensores/Atuadores</li>
+                        <li>Controle de Máquinas</li>
+                        <li>Integração de Sistemas</li>
+                    </ul>
+                    <a href="#contato" class="btn-link">Falar com Engenharia <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Solução 4 -->
+                <div class="solution-card highlight-card">
+                    <div class="solution-header">
+                        <i class="fa-solid fa-eye solution-icon text-cyan"></i>
+                        <div>
+                            <h3>Visão Computacional Industrial</h3>
+                            <span class="solution-sub">Inspeção Visual Automatizada</span>
+                        </div>
+                    </div>
+                    <p class="solution-desc">
+                        Sistemas inteligentes capazes de analisar imagens em tempo real para identificar defeitos, validar componentes, medir características e automatizar inspeções.
+                    </p>
+                    <ul class="tag-list">
+                        <li>Inspeção Visual</li>
+                        <li>Detecção de Defeitos</li>
+                        <li>Reconhecimento</li>
+                        <li>Medição Dimensional</li>
+                        <li>OCR e Leitura</li>
+                        <li>Classificação</li>
+                    </ul>
+                    <a href="#contato" class="btn btn-primary btn-sm mt-4">Avaliar uma Aplicação</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destaque — Visão Computacional -->
+    <section id="visao-computacional" class="section bg-dark text-white">
+        <div class="container">
+            <div class="grid grid-2 gap-12 items-center">
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Código da Peça ou Descrição do Item</label>
-                    <textarea rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brandBlue focus:outline-none" placeholder="Informe os códigos dos componentes, quantidades e especificações técnicas necessárias..."></textarea>
+                    <span class="badge">INSPEÇÃO INTELIGENTE</span>
+                    <h2 class="text-3xl font-bold mt-4">Transforme câmeras em ferramentas de controle de qualidade.</h2>
+                    <p class="text-gray mt-4">
+                        A visão computacional permite automatizar inspeções que antes dependiam exclusivamente da análise humana. A KLAMSTUP desenvolve sistemas capazes de capturar, analisar e interpretar imagens em tempo real, identificando automaticamente características e possíveis desvios no processo.
+                    </p>
+
+                    <div class="flow-container mt-8">
+                        <div class="flow-step">
+                            <div class="step-num">1</div>
+                            <span>Câmera</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <div class="flow-step">
+                            <div class="step-num">2</div>
+                            <span>Captura</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <div class="flow-step">
+                            <div class="step-num">3</div>
+                            <span>Processamento</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <div class="flow-step">
+                            <div class="step-num">4</div>
+                            <span>Análise</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right flow-arrow"></i>
+                        <div class="flow-step">
+                            <div class="step-num">5</div>
+                            <span>Decisão</span>
+                        </div>
+                    </div>
+
+                    <a href="#contato" class="btn btn-primary mt-8">Quero automatizar minha inspeção</a>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Anexar Desenho Técnico ou Foto da Peça (Opcional)</label>
-                    <input type="file" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-brandBlue hover:file:bg-blue-100">
+                <div class="apps-grid">
+                    <h3 class="text-xl font-bold mb-6">Aplicações Típicas:</h3>
+                    <ul class="app-list">
+                        <li><i class="fa-solid fa-check text-cyan"></i> Detecção de defeitos superficiais</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Inspeção de acabamento e textura</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Controle dimensional de precisão</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Conferência de presença e ausência de componentes</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Verificação de montagem e gabarito</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Leitura de códigos (DataMatrix, QR, Barcode) e OCR</li>
+                        <li><i class="fa-solid fa-check text-cyan"></i> Classificação automática de produtos</li>
+                    </ul>
                 </div>
-
-                <button type="submit" class="w-full bg-brandOrange hover:bg-orange-600 text-white font-bold py-4 rounded-lg text-lg transition shadow-md">
-                    Enviar Pedido de Cotação
-                </button>
-            </form>
+            </div>
         </div>
     </section>
 
-    <footer class="bg-industrialDark text-gray-400 py-12 px-4 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            <div>
-                <div class="text-2xl font-black text-white mb-4">
-                    PNEUMÁTICA<span class="text-brandOrange">PRO</span>
+    <!-- Controle de Qualidade Automatizado -->
+    <section id="qualidade" class="section">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Qualidade em tempo real. Decisões baseadas em dados.</h2>
+                <p class="section-subtitle">
+                    Em vez de descobrir um problema depois que o produto já deixou a linha, a inspeção automatizada permite identificar desvios no momento em que eles acontecem.
+                </p>
+            </div>
+
+            <div class="comparison-wrapper mt-12">
+                <div class="comp-card comp-before">
+                    <div class="comp-header">
+                        <h3>ANTES</h3>
+                        <span>Inspeção Tradicional</span>
+                    </div>
+                    <ul class="comp-list">
+                        <li><i class="fa-solid fa-xmark"></i> Inspeção manual amostragem</li>
+                        <li><i class="fa-solid fa-xmark"></i> Sujeito a erros humanos e fadiga</li>
+                        <li><i class="fa-solid fa-xmark"></i> Processo lento e gargalo de linha</li>
+                        <li><i class="fa-solid fa-xmark"></i> Retrabalho frequente</li>
+                        <li><i class="fa-solid fa-xmark"></i> Baixa rastreabilidade de dados</li>
+                    </ul>
                 </div>
-                <p class="text-sm">Fornecendo soluções de alta performance em automação pneumática para indústrias em todo o Brasil.</p>
+
+                <div class="comp-vs">VS</div>
+
+                <div class="comp-card comp-after">
+                    <div class="comp-header">
+                        <h3>DEPOIS (KLAMSTUP)</h3>
+                        <span>Inspeção Automatizada</span>
+                    </div>
+                    <ul class="comp-list">
+                        <li><i class="fa-solid fa-check"></i> Inspeção 100% automatizada</li>
+                        <li><i class="fa-solid fa-check"></i> Padronização e alta precisão</li>
+                        <li><i class="fa-solid fa-check"></i> Inspeção em altíssima velocidade</li>
+                        <li><i class="fa-solid fa-check"></i> Redução drástica do desperdício</li>
+                        <li><i class="fa-solid fa-check"></i> Histórico e dados de processo em tempo real</li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Atendimento Comercial</h4>
-                <p class="text-sm mb-2"><i class="fa-solid fa-phone mr-2 text-brandOrange"></i> (00) 0000-0000</p>
-                <p class="text-sm mb-2"><i class="fa-solid fa-envelope mr-2 text-brandOrange"></i> vendas@pneumaticapro.com.br</p>
-                <p class="text-sm"><i class="fa-solid fa-location-dot mr-2 text-brandOrange"></i> Distrito Industrial - SP</p>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Horário de Funcionamento</h4>
-                <p class="text-sm mb-2">Segunda a Sexta: 08:00 - 18:00</p>
-                <p class="text-sm text-brandOrange font-semibold">Plantão 24h para Emergências Industriais</p>
+
+            <div class="impact-quote mt-12">
+                <p>Mais controle. Menos desperdício. Mais produtividade.</p>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto border-t border-gray-800 mt-8 pt-6 text-center text-xs">
-            &copy; 2026 PneumáticaPro. Todos os direitos reservados.
+    </section>
+
+    <!-- Diferencial / Inovação -->
+    <section id="inovacao" class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Tecnologia aplicada para eliminar desperdícios.</h2>
+                <p class="section-subtitle">
+                    Inovação para a KLAMSTUP não significa apenas utilizar novas tecnologias. Significa aplicar engenharia de forma inteligente para resolver problemas concretos e gerar retorno real para o cliente.
+                </p>
+            </div>
+
+            <div class="grid grid-4 gap-6 mt-12">
+                <div class="card-pillar">
+                    <div class="pillar-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Redução de Desperdícios</h3>
+                    <p>Identificação antecipada de defeitos e desvios para minimizar o refugo de materiais.</p>
+                </div>
+
+                <div class="card-pillar">
+                    <div class="pillar-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3>Maior Produtividade</h3>
+                    <p>Automação de tarefas repetitivas e inspeções complexas na velocidade da linha de produção.</p>
+                </div>
+
+                <div class="card-pillar">
+                    <div class="pillar-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <h3>Padronização</h3>
+                    <p>Processos de inspeção consistentes, mensuráveis e imunes à subjetividade.</p>
+                </div>
+
+                <div class="card-pillar">
+                    <div class="pillar-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>Indústria 4.0</h3>
+                    <p>Dados, conectividade, automação e inteligência integrados ao ecossistema da fábrica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Trabalhamos -->
+    <section id="processo" class="section">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Do problema à solução. Da ideia ao chão de fábrica.</h2>
+                <p class="section-subtitle">Nosso processo metodológico estruturado para garantir o sucesso do projeto.</p>
+            </div>
+
+            <div class="process-timeline mt-12">
+                <div class="process-step">
+                    <div class="step-badge">01</div>
+                    <h4>Entendimento</h4>
+                    <p>Conhecemos a fundo o processo produtivo e identificamos os gargalos e problemas.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-badge">02</div>
+                    <h4>Análise</h4>
+                    <p>Estudamos os requisitos técnicos, viabilidade econômica e metas de desempenho.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-badge">03</div>
+                    <h4>Desenvolvimento</h4>
+                    <p>Projetamos a solução mecânica, eletrônica e a inteligência de software.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-badge">04</div>
+                    <h4>Validação</h4>
+                    <p>Testamos rigorosamente a solução em bancada simulando as condições de fábrica.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-badge">05</div>
+                    <h4>Implementação</h4>
+                    <p>Integramos a tecnologia diretamente no chão de fábrica e treinamos a equipe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section id="diferenciais" class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title">Por que desenvolver sua solução com a KLAMSTUP?</h2>
+            </div>
+
+            <div class="grid grid-3 gap-8 mt-12">
+                <div class="card-diff">
+                    <i class="fa-solid fa-sliders diff-icon"></i>
+                    <h3>Soluções sob medida</h3>
+                    <p>Não trabalhamos com pacotes engessados. Desenvolvemos sistemas exatamente adequados à sua aplicação.</p>
+                </div>
+
+                <div class="card-diff">
+                    <i class="fa-solid fa-layer-group diff-icon"></i>
+                    <h3>Engenharia multidisciplinar</h3>
+                    <p>Dominamos e integramos mecânica, eletrônica, automação industrial e inteligência de software.</p>
+                </div>
+
+                <div class="card-diff">
+                    <i class="fa-solid fa-industry diff-icon"></i>
+                    <h3>Visão prática</h3>
+                    <p>Projetamos conhecendo e respeitando a dura realidade e severidade do chão de fábrica.</p>
+                </div>
+
+                <div class="card-diff">
+                    <i class="fa-solid fa-rocket diff-icon"></i>
+                    <h3>Mentalidade de startup</h3>
+                    <p>Agilidade, inovação, prototipagem rápida e busca constante pela solução tecnicamente perfeita.</p>
+                </div>
+
+                <div class="card-diff">
+                    <i class="fa-solid fa-bullseye diff-icon"></i>
+                    <h3>Foco em resultado</h3>
+                    <p>Cada projeto desenvolvido deve obrigatoriamente gerar impacto financeiro e operacional mensurável.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prova de Autoridade / Placeholders -->
+    <section id="autoridade" class="section bg-dark text-white">
+        <div class="container">
+            <div class="section-header text-center max-w-700">
+                <h2 class="section-title text-white">Tecnologia que gera resultados mensuráveis.</h2>
+            </div>
+
+            <div class="grid grid-4 gap-6 mt-12 text-center">
+                <div class="stat-card">
+                    <!-- REPLACEMENT_HINT: Substituir placeholder pelo número real de projetos quando disponível -->
+                    <div class="stat-number">+<span class="counter">XX</span></div>
+                    <div class="stat-label">Projetos Desenvolvidos</div>
+                </div>
+
+                <div class="stat-card">
+                    <!-- REPLACEMENT_HINT: Substituir placeholder pelo número real de aplicações -->
+                    <div class="stat-number">+<span class="counter">XX</span></div>
+                    <div class="stat-label">Aplicações Industriais</div>
+                </div>
+
+                <div class="stat-card">
+                    <!-- REPLACEMENT_HINT: Substituir placeholder pelo número real de segmentos -->
+                    <div class="stat-number"><span class="counter">XX</span></div>
+                    <div class="stat-label">Segmentos Atendidos</div>
+                </div>
+
+                <div class="stat-card">
+                    <!-- REPLACEMENT_HINT: Substituir placeholder pelo percentual de redução -->
+                    <div class="stat-number"><span class="counter">XX</span>%</div>
+                    <div class="stat-label">Redução Média de Desperdício</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Leads -->
+    <section id="contato" class="section">
+        <div class="container">
+            <div class="grid grid-2 gap-12">
+                <div>
+                    <span class="badge">SOLICITAÇÃO TÉCNICA</span>
+                    <h2 class="section-title mt-4">Vamos analisar seu desafio industrial?</h2>
+                    <p class="section-subtitle">
+                        Conte brevemente o problema que sua empresa deseja resolver. Nossa equipe de engenheiros irá avaliar a aplicação e entrar em contato.
+                    </p>
+
+                    <div class="contact-info-direct mt-8">
+                        <div class="info-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <strong>E-mail Corporativo:</strong>
+                                <!-- REPLACEMENT_HINT: Substituir com o e-mail real da empresa -->
+                                <p>contato@klamstup.com.br</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item mt-4">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div>
+                                <strong>Atendimento Comercial / WhatsApp:</strong>
+                                <!-- REPLACEMENT_HINT: Substituir com o telefone real da empresa -->
+                                <p>+55 (00) 00000-0000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="lead-form" class="b2b-form">
+                        <div class="form-group">
+                            <label for="empresa">Nome da Empresa *</label>
+                            <input type="text" id="empresa" name="empresa" required placeholder="Sua Empresa S.A.">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome do Responsável *</label>
+                                <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cargo">Cargo</label>
+                                <input type="text" id="cargo" name="cargo" placeholder="Ex: Gerente de Qualidade">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">E-mail Corporativo *</label>
+                                <input type="email" id="email" name="email" required placeholder="nome@empresa.com.br">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefone">Telefone / WhatsApp *</label>
+                                <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="area">Área da Empresa</label>
+                                <select id="area" name="area">
+                                    <option value="">Selecione...</option>
+                                    <option value="Qualidade">Qualidade</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                    <option value="Produção">Produção</option>
+                                    <option value="Automação">Automação / Engenharia</option>
+                                    <option value="Diretoria">Diretoria / Operações</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prazo">Prazo para Implementação</label>
+                                <select id="prazo" name="prazo">
+                                    <option value="">Selecione...</option>
+                                    <option value="Imediato">Imediato (Urgente)</option>
+                                    <option value="1 a 3 meses">1 a 3 meses</option>
+                                    <option value="3 a 6 meses">3 a 6 meses</option>
+                                    <option value="Planejamento futuro">Planejamento futuro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descricao">Descreva seu problema ou aplicação</label>
+                            <textarea id="descricao" name="descricao" rows="4" placeholder="Ex.: Precisamos automatizar a inspeção visual de peças para identificar riscos, deformações e ausência de componentes."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="arquivo">Anexar foto, desenho ou documento (JPG, PNG, PDF, DWG, DXF)</label>
+                            <input type="file" id="arquivo" name="arquivo" accept=".jpg,.jpeg,.png,.pdf,.dwg,.dxf">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Solicitar Análise Técnica</button>
+                    </form>
+                    <div id="form-feedback" class="form-feedback"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="section bg-dark text-white text-center">
+        <div class="container max-w-700">
+            <h2 class="text-3xl font-bold">Seu processo pode ser mais inteligente.</h2>
+            <p class="text-gray mt-4">Conte-nos qual desafio sua indústria enfrenta. A KLAMSTUP pode transformar esse problema em uma solução de engenharia.</p>
+            <div class="hero-buttons justify-center mt-8">
+                <!-- REPLACEMENT_HINT: Substituir URL pelo link real do WhatsApp -->
+                <a href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1!%20Conheci%20a%20KLAMSTUP%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20uma%20solu%C3%A7%C3%A3o%20de%20automa%C3%A7%C3%A3o%20industrial." target="_blank" class="btn btn-primary">Falar com um Especialista</a>
+                <a href="#contato" class="btn btn-secondary">Solicitar Orçamento</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container grid grid-4 gap-8">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-text text-white">KLAMSTUP</span>
+                    <span class="logo-dot"></span>
+                </div>
+                <p class="mt-4 text-sm text-gray">
+                    Engenharia Mecatrônica Inteligente e Soluções para a Indústria 4.0.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Soluções</h4>
+                <ul>
+                    <li><a href="#solucoes">Projetos CAD 3D</a></li>
+                    <li><a href="#solucoes">Eletrônica Dedicada</a></li>
+                    <li><a href="#solucoes">Automação e CLP</a></li>
+                    <li><a href="#visao-computacional">Visão Computacional</a></li>
+                    <li><a href="#qualidade">Controle de Qualidade</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Empresa</h4>
+                <ul>
+                    <li><a href="#quem-somos">Quem Somos</a></li>
+                    <li><a href="#inovacao">Inovação</a></li>
+                    <li><a href="#processo">Como Trabalhamos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <!-- REPLACEMENT_HINT: Substituir dados do rodapé pelas informações reais -->
+                <p class="text-sm text-gray"><i class="fa-solid fa-envelope"></i> contato@klamstup.com.br</p>
+                <p class="text-sm text-gray mt-2"><i class="fa-brands fa-whatsapp"></i> +55 (00) 00000-0000</p>
+                <p class="text-sm text-gray mt-2"><i class="fa-solid fa-location-dot"></i> Brasil</p>
+                <div class="social-links mt-4">
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container text-center text-xs text-gray">
+                © 2026 KLAMSTUP — Todos os direitos reservados. Engenharia Mecatrônica & Automação.
+            </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/5500000000000" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-xl z-50 transition">
+    <!-- Botão Flutuante do WhatsApp -->
+    <!-- REPLACEMENT_HINT: Substituir 55SEUNUMERO pelo número real com DDD -->
+    <a href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1!%20Conheci%20a%20KLAMSTUP%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20uma%20solu%C3%A7%C3%A3o%20de%20automa%C3%A7%C3%A3o%20industrial." class="whatsapp-float" target="_blank" aria-label="Fale com a KLAMSTUP pelo WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
+        <span class="tooltip">Fale com a KLAMSTUP</span>
     </a>
 
+    <!-- Scripts -->
+    <script src="script.js"></script>
 </body>
 </html>
