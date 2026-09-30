@@ -1,1625 +1,628 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO PRIMARY TAGS -->
-  <title>KLAMSTUP | Visão Computacional e Automação Industrial</title>
-  <meta name="title" content="KLAMSTUP | Visão Computacional e Automação Industrial">
-  <meta name="description" content="A KLAMSTUP desenvolve soluções de visão computacional, controle de qualidade automatizado, automação, eletrônica e engenharia mecatrônica para a Indústria 4.0.">
-  <meta name="keywords" content="visão computacional industrial, inspeção automatizada, controle de qualidade automatizado, automação industrial, indústria 4.0, engenharia mecatrônica, programação de CLP, CAD 3D, eletrônica industrial, inspeção visual automática">
-  <meta name="robots" content="index, follow">
-  
-  <!-- OPEN GRAPH / FACEBOOK / LINKEDIN -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://klamstup.com.br/">
-  <meta property="og:title" content="KLAMSTUP | Visão Computacional e Automação Industrial">
-  <meta property="og:description" content="Transformamos processos industriais em sistemas mais inteligentes, precisos e eficientes com engenharia mecatrônica e visão computacional.">
-  <meta property="og:image" content="https://klamstup.com.br/assets/images/og-image.jpg">
-
-  <!-- FONTS & ICONS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <style>
-    /* ==========================================================================
-       VARIABLES & RESET
-       ========================================================================== */
-    :root {
-      --primary: #0876C9;
-      --primary-hover: #065fa4;
-      --secondary: #19B8E6;
-      --dark: #07131F;
-      --dark-card: #0D1F30;
-      --bg-light: #F4F7FA;
-      --white: #FFFFFF;
-      --text-main: #172534;
-      --text-muted: #5A6E85;
-      --border-light: #E2E8F0;
-      --border-dark: #1E344B;
-      --radius: 12px;
-      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      --shadow-sm: 0 2px 8px rgba(7, 19, 31, 0.05);
-      --shadow-md: 0 8px 24px rgba(7, 19, 31, 0.08);
-      --shadow-lg: 0 16px 32px rgba(7, 19, 31, 0.12);
-      --glow: 0 0 20px rgba(25, 184, 230, 0.25);
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: var(--text-main);
-      background-color: var(--bg-light);
-      line-height: 1.6;
-    }
-
-    body {
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* ==========================================================================
-       TYPOGRAPHY & UTILITIES
-       ========================================================================== */
-    .container {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section {
-      padding: 96px 0;
-    }
-
-    .section-dark {
-      background-color: var(--dark);
-      color: var(--white);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 64px auto;
-    }
-
-    .section-header h2 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .section-header p {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-    }
-
-    .section-dark .section-header p {
-      color: #94A3B8;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(8, 118, 201, 0.1);
-      color: var(--primary);
-      border: 1px solid rgba(8, 118, 201, 0.2);
-      padding: 6px 16px;
-      border-radius: 99px;
-      font-size: 0.875rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 20px;
-    }
-
-    .section-dark .badge {
-      background: rgba(25, 184, 230, 0.1);
-      color: var(--secondary);
-      border-color: rgba(25, 184, 230, 0.2);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: var(--transition);
-      cursor: pointer;
-      border: none;
-      outline: none;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: var(--white);
-      box-shadow: 0 4px 14px rgba(8, 118, 201, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(8, 118, 201, 0.4);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid var(--border-dark);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--secondary);
-      color: var(--secondary);
-      background: rgba(25, 184, 230, 0.05);
-      transform: translateY(-2px);
-    }
-
-    .btn-light {
-      background: var(--white);
-      color: var(--text-main);
-      border: 1px solid var(--border-light);
-    }
-
-    .btn-light:hover {
-      background: var(--bg-light);
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    /* ==========================================================================
-       HEADER & NAVIGATION
-       ========================================================================== */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(7, 19, 31, 0.85);
-      backdrop-filter: blur(12px);
-      border-b: 1px solid var(--border-dark);
-      transition: var(--transition);
-    }
-
-    header.scrolled {
-      background: rgba(7, 19, 31, 0.98);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 80px;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .logo span {
-      color: var(--secondary);
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nav-link {
-      color: #94A3B8;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: var(--transition);
-    }
-
-    .nav-link:hover {
-      color: var(--white);
-    }
-
-    .mobile-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--white);
-      cursor: pointer;
-    }
-
-    /* ==========================================================================
-       HERO SECTION
-       ========================================================================== */
-    .hero {
-      padding-top: 160px;
-      padding-bottom: 100px;
-      background: linear-gradient(135deg, var(--dark) 0%, #0A1E32 100%);
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(25, 184, 230, 0.08) 0%, rgba(0,0,0,0) 70%);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 48px;
-      align-items: center;
-    }
-
-    .hero-content h1 {
-      font-size: 3.25rem;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-    }
-
-    .hero-content h1 span {
-      background: linear-gradient(135deg, var(--white) 0%, var(--secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-content p {
-      font-size: 1.2rem;
-      color: #94A3B8;
-      margin-bottom: 36px;
-      max-width: 600px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* HERO MOCKUP VISUAL */
-    .hero-visual {
-      position: relative;
-      border-radius: var(--radius);
-      background: var(--dark-card);
-      border: 1px solid var(--border-dark);
-      padding: 24px;
-      box-shadow: var(--shadow-lg), var(--glow);
-    }
-
-    .inspection-canvas {
-      position: relative;
-      width: 100%;
-      height: 320px;
-      background: #030A12;
-      border-radius: 8px;
-      border: 1px solid rgba(25, 184, 230, 0.2);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .industrial-grid {
-      position: absolute;
-      inset: 0;
-      background-image: linear-gradient(rgba(25, 184, 230, 0.1) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(25, 184, 230, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-
-    .inspected-part {
-      position: relative;
-      width: 160px;
-      height: 160px;
-      border: 2px dashed rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .bounding-box {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-      border: 2px solid var(--secondary);
-      box-shadow: 0 0 15px rgba(25, 184, 230, 0.4);
-      animation: pulseBox 3s infinite alternate;
-    }
-
-    .bounding-tag {
-      position: absolute;
-      top: -24px;
-      left: -2px;
-      background: var(--secondary);
-      color: var(--dark);
-      font-size: 0.7rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 2px;
-    }
-
-    .scan-line {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--secondary);
-      box-shadow: 0 0 10px var(--secondary);
-      animation: scan 2.5s infinite linear;
-    }
-
-    .hud-overlay {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      right: 12px;
-      display: flex;
-      justify-content: space-between;
-      font-family: monospace;
-      font-size: 0.75rem;
-      color: var(--secondary);
-      background: rgba(7, 19, 31, 0.8);
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: 1px solid rgba(25, 184, 230, 0.2);
-    }
-
-    @keyframes scan {
-      0% { top: 0%; }
-      100% { top: 100%; }
-    }
-
-    @keyframes pulseBox {
-      0% { border-color: var(--secondary); }
-      100% { border-color: #00FF87; }
-    }
-
-    /* ==========================================================================
-       ABOUT SECTION
-       ========================================================================== */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .about-pillars {
-      display: grid;
-      gap: 24px;
-      margin-top: 32px;
-    }
-
-    .pillar-item {
-      display: flex;
-      gap: 16px;
-      background: var(--white);
-      padding: 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .pillar-icon {
-      background: rgba(8, 118, 201, 0.1);
-      color: var(--primary);
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* ==========================================================================
-       THE PROBLEM SECTION
-       ========================================================================== */
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .problem-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 32px;
-      border: 1px solid var(--border-light);
-      border-top: 4px solid #E11D48;
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
-    }
-
-    .problem-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .problem-icon {
-      color: #E11D48;
-      margin-bottom: 16px;
-    }
-
-    .problem-card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .problem-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* ==========================================================================
-       SERVICES / SOLUTIONS
-       ========================================================================== */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-    }
-
-    .service-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .service-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
-
-    .service-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(8, 118, 201, 0.08);
-      color: var(--primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-
-    .service-card h3 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .service-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-      flex-grow: 1;
-    }
-
-    .service-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .tag {
-      background: var(--bg-light);
-      color: var(--text-main);
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 4px;
-    }
-
-    /* ==========================================================================
-       COMPUTER VISION HIGHLIGHT SECTION
-       ========================================================================== */
-    .cv-flow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 48px 0;
-      flex-wrap: wrap;
-    }
-
-    .cv-step {
-      background: var(--dark-card);
-      border: 1px solid var(--border-dark);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-align: center;
-      flex: 1;
-      min-width: 140px;
-    }
-
-    .cv-step-icon {
-      color: var(--secondary);
-      margin-bottom: 8px;
-    }
-
-    .cv-step-title {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .cv-arrow {
-      color: var(--border-dark);
-    }
-
-    .cv-applications {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .cv-app-item {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border-dark);
-      padding: 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #CBD5E1;
-    }
-
-    .cv-app-item i {
-      color: var(--secondary);
-    }
-
-    /* ==========================================================================
-       BEFORE / AFTER COMPARISON
-       ========================================================================== */
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-
-    .comp-card {
-      padding: 32px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-light);
-    }
-
-    .comp-before {
-      background: #FFF1F2;
-      border-color: #FECDD3;
-    }
-
-    .comp-after {
-      background: #F0FDF4;
-      border-color: #BBF7D0;
-    }
-
-    .comp-title {
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .comp-before .comp-title { color: #9F1239; }
-    .comp-after .comp-title { color: #166534; }
-
-    .comp-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .comp-before li { color: #881337; }
-    .comp-after li { color: #14532D; }
-
-    /* ==========================================================================
-       PROCESS (HOW WE WORK)
-       ========================================================================== */
-    .process-timeline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      position: relative;
-    }
-
-    .process-step {
-      background: var(--white);
-      border-radius: var(--radius);
-      padding: 28px 20px;
-      border: 1px solid var(--border-light);
-      position: relative;
-    }
-
-    .step-number {
-      font-size: 1.75rem;
-      font-weight: 900;
-      color: var(--primary);
-      opacity: 0.8;
-      margin-bottom: 12px;
-    }
-
-    .process-step h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .process-step p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-
-    /* ==========================================================================
-       PROOFS & NUMBERS
-       ========================================================================== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 32px;
-      text-align: center;
-    }
-
-    .stat-card {
-      background: var(--white);
-      padding: 32px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .stat-number {
-      font-size: 2.75rem;
-      font-weight: 900;
-      color: var(--primary);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    /* ==========================================================================
-       LEAD FORM SECTION
-       ========================================================================== */
-    .form-wrapper {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 48px;
-      border: 1px solid var(--border-light);
-      box-shadow: var(--shadow-lg);
-      max-width: 880px;
-      margin: 0 auto;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group.full {
-      grid-column: span 2;
-    }
-
-    .form-group label {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border-light);
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: var(--transition);
-      background: var(--bg-light);
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: var(--white);
-      box-shadow: 0 0 0 3px rgba(8, 118, 201, 0.15);
-    }
-
-    textarea.form-control {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .file-upload {
-      border: 2px dashed var(--border-light);
-      padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      background: var(--bg-light);
-      transition: var(--transition);
-    }
-
-    .file-upload:hover {
-      border-color: var(--primary);
-      background: rgba(8, 118, 201, 0.02);
-    }
-
-    /* ==========================================================================
-       FOOTER
-       ========================================================================== */
-    footer {
-      background: var(--dark);
-      color: #94A3B8;
-      padding-top: 80px;
-      padding-bottom: 32px;
-      border-t: 1px solid var(--border-dark);
-      font-size: 0.9rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.5fr;
-      gap: 48px;
-      margin-bottom: 64px;
-    }
-
-    .footer-col h4 {
-      color: var(--white);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .footer-links li {
-      margin-bottom: 12px;
-    }
-
-    .footer-links a {
-      transition: var(--transition);
-    }
-
-    .footer-links a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid var(--border-dark);
-      padding-top: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    /* ==========================================================================
-       FLOATING WHATSAPP & BACK TO TOP
-       ========================================================================== */
-    .whatsapp-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #25D366;
-      color: var(--white);
-      width: 60px;
-      height: 60px;
-      border-radius: 99px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      z-index: 999;
-      transition: var(--transition);
-    }
-
-    .whatsapp-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* ==========================================================================
-       RESPONSIVE DESIGN (MOBILE)
-       ========================================================================== */
-    @media (max-width: 992px) {
-      .hero-grid, .about-grid, .comparison-grid, .footer-grid {
-        grid-template-columns: 1fr;
-      }
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-      .form-group.full {
-        grid-column: span 1;
-      }
-      .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      .mobile-toggle {
-        display: block;
-      }
-      .nav-menu {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background: var(--dark);
-        flex-direction: column;
-        padding: 32px;
-        border-bottom: 1px solid var(--border-dark);
-        clip-path: circle(0% at 100% 0);
-        transition: clip-path 0.4s ease-in-out;
-      }
-      .nav-menu.active {
-        clip-path: circle(140% at 100% 0);
-      }
-      .cv-arrow {
-        display: none;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ==========================================================================
-     HEADER / NAVEGAÇÃO
-     ========================================================================== -->
-  <header id="header">
-    <div class="container nav-container">
-      <a href="#" class="logo">
-        <i data-lucide="cpu" class="text-secondary"></i> KLAMSTUP
-      </a>
-      
-      <nav class="nav-menu" id="navMenu">
-        <a href="#home" class="nav-link">Início</a>
-        <a href="#quem-somos" class="nav-link">Quem Somos</a>
-        <a href="#solucoes" class="nav-link">Soluções</a>
-        <a href="#visao-computacional" class="nav-link">Visão Computacional</a>
-        <a href="#inovacao" class="nav-link">Inovação</a>
-        <a href="#contato" class="nav-link">Contato</a>
-      </nav>
-
-      <div style="display: flex; gap: 16px; align-items: center;">
-        <a href="#contato" class="btn btn-primary" style="display: none; display: md:inline-flex;">
-          Solicite um Orçamento
-        </a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir Menu">
-          <i data-lucide="menu"></i>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- ==========================================================================
-     HERO SECTION
-     ========================================================================== -->
-  <section id="home" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="badge">
-          <i data-lucide="zap" size="14"></i> Indústria 4.0 & Mecatrônica
-        </div>
-        <h1>Visão Inteligente. Automação Precisa. <span>Indústria Mais Eficiente.</span></h1>
-        <p>A KLAMSTUP desenvolve sistemas de visão computacional, controle de qualidade automatizado e soluções mecatrônicas sob medida para transformar processos industriais.</p>
-        <div class="hero-actions">
-          <a href="#contato" class="btn btn-primary">
-            Solicite um Orçamento de Automação <i data-lucide="arrow-right" size="18"></i>
-          </a>
-          <a href="#solucoes" class="btn btn-secondary">
-            Conheça nossas soluções
-          </a>
-        </div>
-      </div>
-
-      <!-- MOCKUP VISUAL - LINHA INDUSTRIAL COM VISÃO COMPUTACIONAL -->
-      <div class="hero-visual">
-        <div class="inspection-canvas">
-          <div class="industrial-grid"></div>
-          <div class="scan-line"></div>
-          
-          <div class="inspected-part">
-            <i data-lucide="cog" size="64" color="#334155"></i>
-            <div class="bounding-box">
-              <span class="bounding-tag">INSPEÇÃO: OK (99.8%)</span>
-            </div>
-          </div>
-
-          <div class="hud-overlay">
-            <span>CAM_01: ONLINE</span>
-            <span>FPS: 60</span>
-            <span>DEFEITO: 0</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     QUEM SOMOS
-     ========================================================================== -->
-  <section id="quem-somos" class="section">
-    <div class="container about-grid">
-      <div>
-        <div class="badge">Quem Somos</div>
-        <h2 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 20px;">Engenharia que transforma desafios industriais em soluções inteligentes.</h2>
-        <p style="color: var(--text-muted); margin-bottom: 16px;">
-          A <strong>KLAMSTUP</strong> é uma startup de engenharia mecatrônica criada para desenvolver soluções tecnológicas capazes de resolver desafios reais da indústria.
-        </p>
-        <p style="color: var(--text-muted); margin-bottom: 16px;">
-          Nossa atuação combina engenharia mecânica, eletrônica, automação, programação e visão computacional para criar sistemas personalizados, confiáveis e preparados para as necessidades de cada processo.
-        </p>
-        <p style="color: var(--text-muted);">
-          Nosso espírito empreendedor está baseado em uma premissa simples: <strong>entender profundamente o problema antes de desenvolver a tecnologia.</strong>
-        </p>
-      </div>
-
-      <div class="about-pillars">
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="compass"></i></div>
-          <div>
-            <h4 style="font-weight: 700; margin-bottom: 4px;">Engenharia</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Projetamos soluções considerando o processo, a aplicação e os requisitos técnicos do cliente.</p>
-          </div>
-        </div>
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="cpu"></i></div>
-          <div>
-            <h4 style="font-weight: 700; margin-bottom: 4px;">Tecnologia</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Integramos diferentes tecnologias para desenvolver sistemas inteligentes e automatizados.</p>
-          </div>
-        </div>
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="trending-up"></i></div>
-          <div>
-            <h4 style="font-weight: 700; margin-bottom: 4px;">Resultado</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Nosso foco é gerar ganhos reais de produtividade, qualidade e eficiência.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     O PROBLEMA
-     ========================================================================== -->
-  <section class="section" style="background: var(--white); border-y: 1px solid var(--border-light);">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">O Desafio do Chão de Fábrica</div>
-        <h2>Quanto sua empresa perde por não automatizar o controle de qualidade?</h2>
-        <p>Processos manuais e sem rastreabilidade são gargalos invisíveis que afetam diretamente a margem do seu negócio.</p>
-      </div>
-
-      <div class="problem-grid">
-        <div class="problem-card">
-          <i data-lucide="user-x" class="problem-icon" size="32"></i>
-          <h3>Inspeção Manual</h3>
-          <p>Processos dependentes de operadores podem apresentar variações, fadiga e limitações severas de produtividade.</p>
-        </div>
-        <div class="problem-card">
-          <i data-lucide="rotate-ccw" class="problem-icon" size="32"></i>
-          <h3>Retrabalho</h3>
-          <p>Falhas não identificadas no início do processo geram retrabalho caro e aumento direto nos custos de produção.</p>
-        </div>
-        <div class="problem-card">
-          <i data-lucide="trash-2" class="problem-icon" size="32"></i>
-          <h3>Desperdício</h3>
-          <p>Produtos fora da especificação técnica representam perda contínua de matéria-prima, tempo e recursos energéticos.</p>
-        </div>
-        <div class="problem-card">
-          <i data-lucide="file-x" class="problem-icon" size="32"></i>
-          <h3>Falhas de Rastreabilidade</h3>
-          <p>A ausência de dados confiáveis dificulta a análise de causas-raiz e a implementação de melhorias contínuas.</p>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 48px;">
-        <p style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">
-          A KLAMSTUP transforma essas dores em oportunidades de automação.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     SOLUÇÕES MECATRÔNICAS
-     ========================================================================== -->
-  <section id="solucoes" class="section">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Nossas Especialidades</div>
-        <h2>Soluções Mecatrônicas para desafios reais da indústria</h2>
-        <p>Desenvolvemos projetos integrados sob medida, combinando hardware, software e automação para o seu processo.</p>
-      </div>
-
-      <div class="services-grid">
-        <!-- SERVIÇO 1 -->
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="box"></i></div>
-          <h3>Projetos Mecânicos e CAD 3D</h3>
-          <p>Desenvolvimento de máquinas, dispositivos, estruturas, mecanismos e sistemas mecânicos utilizando modelagem 3D e engenharia aplicada.</p>
-          <div class="service-tags">
-            <span class="tag">Modelagem 3D</span>
-            <span class="tag">Dispositivos</span>
-            <span class="tag">Prototipagem</span>
-            <span class="tag">Estruturas</span>
-          </div>
-          <a href="#contato" class="btn btn-light" style="width: 100%;">Falar com Engenharia</a>
-        </div>
-
-        <!-- SERVIÇO 2 -->
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="circuit-board"></i></div>
-          <h3>Eletrônica Dedicada</h3>
-          <p>Desenvolvimento de sistemas eletrônicos específicos para aplicações industriais, integração de sensores, acionamentos e dispositivos inteligentes.</p>
-          <div class="service-tags">
-            <span class="tag">Sistemas Embarcados</span>
-            <span class="tag">Sensores</span>
-            <span class="tag">Aquisição de Dados</span>
-            <span class="tag">Controle</span>
-          </div>
-          <a href="#contato" class="btn btn-light" style="width: 100%;">Falar com Engenharia</a>
-        </div>
-
-        <!-- SERVIÇO 3 -->
-        <div class="service-card">
-          <div class="service-icon"><i data-lucide="cpu"></i></div>
-          <h3>Automação e Programação de CLP</h3>
-          <p>Desenvolvimento de sistemas de controle para máquinas e processos industriais, buscando segurança, estabilidade e eficiência operacional.</p>
-          <div class="service-tags">
-            <span class="tag">CLP / PLC</span>
-            <span class="tag">IHM</span>
-            <span class="tag">Atuadores</span>
-            <span class="tag">Integração</span>
-          </div>
-          <a href="#contato" class="btn btn-light" style="width: 100%;">Falar com Engenharia</a>
-        </div>
-
-        <!-- SERVIÇO 4 -->
-        <div class="service-card" style="border-color: var(--primary);">
-          <div class="service-icon" style="background: var(--primary); color: var(--white);"><i data-lucide="eye"></i></div>
-          <h3>Visão Computacional Industrial</h3>
-          <p>Sistemas inteligentes capazes de analisar imagens em tempo real para identificar defeitos, validar componentes e automatizar inspeções.</p>
-          <div class="service-tags">
-            <span class="tag">Inspeção Visual</span>
-            <span class="tag">OCR / Códigos</span>
-            <span class="tag">Medição</span>
-            <span class="tag">Rastreamento</span>
-          </div>
-          <a href="#contato" class="btn btn-primary" style="width: 100%;">Avaliar uma Aplicação</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     DESTAQUE — VISÃO COMPUTACIONAL
-     ========================================================================== -->
-  <section id="visao-computacional" class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Tecnologia de Ponta</div>
-        <h2>Transforme câmeras em ferramentas de controle de qualidade.</h2>
-        <p>A visão computacional permite automatizar inspeções que antes dependiam exclusivamente da análise humana. Sistemas capazes de capturar, analisar e interpretar imagens em tempo real.</p>
-      </div>
-
-      <!-- FLUXO VISUAL DA VISÃO COMPUTACIONAL -->
-      <div class="cv-flow">
-        <div class="cv-step">
-          <i data-lucide="camera" class="cv-step-icon"></i>
-          <div class="cv-step-title">1. Câmera</div>
-        </div>
-        <i data-lucide="chevron-right" class="cv-arrow"></i>
-        <div class="cv-step">
-          <i data-lucide="image" class="cv-step-icon"></i>
-          <div class="cv-step-title">2. Captura</div>
-        </div>
-        <i data-lucide="chevron-right" class="cv-arrow"></i>
-        <div class="cv-step">
-          <i data-lucide="cpu" class="cv-step-icon"></i>
-          <div class="cv-step-title">3. Processamento</div>
-        </div>
-        <i data-lucide="chevron-right" class="cv-arrow"></i>
-        <div class="cv-step">
-          <i data-lucide="binary" class="cv-step-icon"></i>
-          <div class="cv-step-title">4. Análise</div>
-        </div>
-        <i data-lucide="chevron-right" class="cv-arrow"></i>
-        <div class="cv-step">
-          <i data-lucide="check-square" class="cv-step-icon"></i>
-          <div class="cv-step-title">5. Decisão</div>
-        </div>
-        <i data-lucide="chevron-right" class="cv-arrow"></i>
-        <div class="cv-step">
-          <i data-lucide="corner-down-right" class="cv-step-icon"></i>
-          <div class="cv-step-title">6. Ação</div>
-        </div>
-      </div>
-
-      <h3 style="text-align: center; color: var(--white); margin-top: 48px; margin-bottom: 24px;">Exemplos de Aplicações Industriais:</h3>
-      
-      <div class="cv-applications">
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Detecção de defeitos</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Inspeção de acabamento</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Controle dimensional</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Conferência de componentes</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Verificação de montagem</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Presença / Ausência</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Leitura de códigos & OCR</div>
-        <div class="cv-app-item"><i data-lucide="check-circle-2"></i> Classificação automática</div>
-      </div>
-
-      <div style="text-align: center; margin-top: 48px;">
-        <a href="#contato" class="btn btn-primary">Quero automatizar minha inspeção</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     CONTROLE DE QUALIDADE AUTOMATIZADO (COMPARATIVO)
-     ========================================================================== -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Impacto Direto</div>
-        <h2>Qualidade em tempo real. Decisões baseadas em dados.</h2>
-        <p>Em vez de descobrir um problema depois que o produto já deixou a linha, a inspeção automatizada identifica desvios no momento exato em que ocorrem.</p>
-      </div>
-
-      <div class="comparison-grid">
-        <div class="comp-card comp-before">
-          <div class="comp-title"><i data-lucide="x-circle"></i> ANTES (Inspeção Manual)</div>
-          <ul class="comp-list">
-            <li><i data-lucide="minus"></i> Erros humanos por fadiga e amostragem</li>
-            <li><i data-lucide="minus"></i> Processo lento que limita a taxa de produção</li>
-            <li><i data-lucide="minus"></i> Alto índice de retrabalho e descarte</li>
-            <li><i data-lucide="minus"></i> Baixa rastreabilidade de falhas na linha</li>
-          </ul>
-        </div>
-
-        <div class="comp-card comp-after">
-          <div class="comp-title"><i data-lucide="check-circle"></i> DEPOIS (KLAMSTUP)</div>
-          <ul class="comp-list">
-            <li><i data-lucide="check"></i> Inspeção automática e padronizada (100% dos produtos)</li>
-            <li><i data-lucide="check"></i> Processamento em alta velocidade (real-time)</li>
-            <li><i data-lucide="check"></i> Redução drástica de desperdícios de matéria-prima</li>
-            <li><i data-lucide="check"></i> Dados centralizados para melhoria contínua</li>
-          </ul>
-        </div>
-      </div>
-
-      <div style="text-align: center; margin-top: 40px; font-weight: 800; font-size: 1.25rem; color: var(--text-main);">
-        Mais controle. Menos desperdício. Mais produtividade.
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     INOVAÇÃO / DIFERENCIAIS
-     ========================================================================== -->
-  <section id="inovacao" class="section" style="background: var(--white);">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Filosofia de Trabalho</div>
-        <h2>Tecnologia aplicada para eliminar desperdícios</h2>
-        <p>Inovação para a KLAMSTUP significa aplicar engenharia de forma inteligente para resolver problemas concretos e gerar retorno financeiro mensurável.</p>
-      </div>
-
-      <div class="problem-grid">
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="shield-alert"></i></div>
-          <div>
-            <h4 style="font-weight: 700;">Redução de Desperdícios</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Identificação antecipada de defeitos e desvios no fluxo produtivo.</p>
-          </div>
-        </div>
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="zap"></i></div>
-          <div>
-            <h4 style="font-weight: 700;">Maior Produtividade</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Automação confiável de tarefas repetitivas e inspeções críticas.</p>
-          </div>
-        </div>
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="sliders"></i></div>
-          <div>
-            <h4 style="font-weight: 700;">Padronização Total</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Processos de inspeção consistentes, imparciais e totalmente mensuráveis.</p>
-          </div>
-        </div>
-        <div class="pillar-item">
-          <div class="pillar-icon"><i data-lucide="network"></i></div>
-          <div>
-            <h4 style="font-weight: 700;">Indústria 4.0 Real</h4>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Dados, conectividade, automação e inteligência no chão de fábrica.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     COMO TRABALHAMOS (PROCESSO)
-     ========================================================================== -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Metodologia</div>
-        <h2>Do problema à solução. Da ideia ao chão de fábrica.</h2>
-        <p>Um processo claro, estruturado e focado na validação técnica de cada etapa.</p>
-      </div>
-
-      <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-number">01</div>
-          <h3>Entendimento</h3>
-          <p>Conhecemos o processo produtivo e identificamos a causa-raiz do problema.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">02</div>
-          <h3>Análise</h3>
-          <p>Estudamos os requisitos técnicos, produtivos, viabilidade e ROI.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">03</div>
-          <h3>Desenvolvimento</h3>
-          <p>Projetamos a solução mecânica, eletrônica, automação e software.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">04</div>
-          <h3>Validação</h3>
-          <p>Testamos rigorosamente a aplicação em bancada e simulamos a operação.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-number">05</div>
-          <h3>Implementação</h3>
-          <p>Integramos a tecnologia ao seu chão de fábrica com acompanhamento técnico.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     PROVA DE AUTORIDADE / PLACEHOLDERS MENSURÁVEIS
-     ========================================================================== -->
-  <section class="section" style="background: var(--white); border-y: 1px solid var(--border-light);">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Resultados Mensuráveis</div>
-        <h2>Tecnologia que gera impacto real no seu negócio</h2>
-      </div>
-
-      <div class="stats-grid">
-        <!-- SUBSTITUIR POR NÚMEROS REAIS -->
-        <div class="stat-card">
-          <div class="stat-number">+15</div>
-          <div class="stat-label">Projetos Desenvolvidos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">+20</div>
-          <div class="stat-label">Aplicações Industriais</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">5</div>
-          <div class="stat-label">Segmentos Atendidos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">30%</div>
-          <div class="stat-label">Média de Redução de Desperdício</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     FORMULÁRIO DE LEADS (B2B)
-     ========================================================================== -->
-  <section id="contato" class="section">
-    <div class="container">
-      <div class="section-header">
-        <div class="badge">Contato Direto</div>
-        <h2>Vamos analisar seu desafio industrial?</h2>
-        <p>Conte brevemente o problema que sua empresa deseja resolver. Nossa equipe técnica avaliará a aplicação e entrará em contato.</p>
-      </div>
-
-      <div class="form-wrapper">
-        <form id="leadForm" onsubmit="handleFormSubmit(event)">
-          <div class="form-grid">
-            
-            <div class="form-group">
-              <label for="empresa">Nome da empresa *</label>
-              <input type="text" id="empresa" class="form-control" placeholder="Razão Social ou Nome Fantasia" required>
-            </div>
-
-            <div class="form-group">
-              <label for="responsavel">Nome do responsável *</label>
-              <input type="text" id="responsavel" class="form-control" placeholder="Seu nome completo" required>
-            </div>
-
-            <div class="form-group">
-              <label for="cargo">Cargo</label>
-              <input type="text" id="cargo" class="form-control" placeholder="Ex: Gerente de Manutenção / Engenheiro">
-            </div>
-
-            <div class="form-group">
-              <label for="email">E-mail corporativo *</label>
-              <input type="email" id="email" class="form-control" placeholder="nome@empresa.com.br" required>
-            </div>
-
-            <div class="form-group">
-              <label for="telefone">Telefone / WhatsApp *</label>
-              <input type="tel" id="telefone" class="form-control" placeholder="(00) 00000-0000" required>
-            </div>
-
-            <div class="form-group">
-              <label for="area">Área da empresa</label>
-              <select id="area" class="form-control">
-                <option value="">Selecione uma área</option>
-                <option value="Engenharia">Engenharia</option>
-                <option value="Manutenção">Manutenção</option>
-                <option value="Qualidade">Qualidade</option>
-                <option value="Produção / Operações">Produção / Operações</option>
-                <option value="Diretoria / Gestão">Diretoria / Gestão</option>
-              </select>
-            </div>
-
-            <div class="form-group full">
-              <label for="descricao">Descreva seu problema ou aplicação *</label>
-              <textarea id="descricao" class="form-control" placeholder="Ex: Precisamos automatizar a inspeção visual de peças para identificar riscos, deformações e ausência de componentes." required></textarea>
-            </div>
-
-            <div class="form-group full">
-              <label>Anexar foto, desenho ou documento (Opcional)</label>
-              <div class="file-upload" onclick="document.getElementById('fileInput').click()">
-                <i data-lucide="upload-cloud" style="color: var(--primary); margin-bottom: 8px;"></i>
-                <p style="font-size: 0.875rem; color: var(--text-muted);">Clique para anexar arquivos (PNG, JPG, PDF, DWG, DXF)</p>
-                <input type="file" id="fileInput" style="display: none;" accept=".png,.jpg,.jpeg,.pdf,.dwg,.dxf">
-                <span id="fileName" style="font-size: 0.8rem; color: var(--primary); font-weight: 600; display: block; margin-top: 8px;"></span>
-              </div>
-            </div>
-
-            <div class="form-group full" style="margin-top: 12px;">
-              <button type="submit" class="btn btn-primary" style="width: 100%;">
-                Solicitar Análise Técnica <i data-lucide="send" size="18"></i>
-              </button>
-            </div>
-
-          </div>
-        </form>
-
-        <div id="formSuccess" style="display: none; text-align: center; padding: 32px;">
-          <i data-lucide="check-circle-2" size="48" color="#10B981" style="margin: 0 auto 16px auto;"></i>
-          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">Recebemos sua solicitação!</h3>
-          <p style="color: var(--text-muted);">Nossa equipe de engenharia entrará em contato em breve para entender melhor sua aplicação.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     CTA FINAL
-     ========================================================================== -->
-  <section class="section section-dark" style="text-align: center; border-t: 1px solid var(--border-dark);">
-    <div class="container" style="max-width: 760px;">
-      <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 16px;">Seu processo pode ser mais inteligente.</h2>
-      <p style="font-size: 1.125rem; color: #94A3B8; margin-bottom: 32px;">
-        Conte-nos qual desafio sua indústria enfrenta. A KLAMSTUP pode transformar esse problema em uma solução de engenharia de alto desempenho.
-      </p>
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <!-- SUBSTITUIR PELO NUMERO DO WHATSAPP -->
-        <a href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1!%20Conheci%20a%20KLAMSTUP%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20uma%20solu%C3%A7%C3%A3o%20de%20automa%C3%A7%C3%A3o%20industrial." target="_blank" class="btn btn-primary">
-          Falar com um Especialista <i data-lucide="message-square" size="18"></i>
-        </a>
-        <a href="#contato" class="btn btn-secondary">
-          Solicitar Orçamento
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-     RODAPÉ
-     ========================================================================== -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a href="#" class="logo" style="margin-bottom: 16px;">
-            <i data-lucide="cpu" class="text-secondary"></i> KLAMSTUP
-          </a>
-          <p style="font-size: 0.9rem; line-height: 1.6; max-width: 320px;">
-            Engenharia Mecatrônica e Soluções Inteligentes para a Indústria 4.0. Especialistas em Visão Computacional e Controle de Qualidade Automatizado.
-          </p>
-        </div>
-
-        <div>
-          <h4>Soluções</h4>
-          <ul class="footer-links">
-            <li><a href="#solucoes">Projetos CAD 3D</a></li>
-            <li><a href="#solucoes">Eletrônica Dedicada</a></li>
-            <li><a href="#solucoes">Automação & CLP</a></li>
-            <li><a href="#visao-computacional">Visão Computacional</a></li>
-            <li><a href="#solucoes">Controle de Qualidade</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Empresa</h4>
-          <ul class="footer-links">
-            <li><a href="#quem-somos">Quem Somos</a></li>
-            <li><a href="#inovacao">Inovação</a></li>
-            <li><a href="#contato">Contato</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Contato</h4>
-          <ul class="footer-links" style="font-size: 0.875rem;">
-            <!-- SUBSTITUIR INFORMAÇÕES REAIS -->
-            <li>E-mail: contato@klamstup.com.br</li>
-            <li>WhatsApp: (00) 00000-0000</li>
-            <li>Endereço: Polo Tecnológico / Brasil</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© 2026 KLAMSTUP — Todos os direitos reservados.</div>
-        <div style="display: flex; gap: 16px;">
-          <!-- LINKS SOCIAIS -->
-          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" size="20"></i></a>
-          <a href="#" aria-label="Instagram"><i data-lucide="instagram" size="20"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ==========================================================================
-     BOTÃO FLUTUANTE DO WHATSAPP
-     ========================================================================== -->
-  <!-- SUBSTITUIR PELO NUMERO DO WHATSAPP -->
-  <a href="https://wa.me/55SEUNUMERO?text=Ol%C3%A1!%20Conheci%20a%20KLAMSTUP%20pelo%20site%20e%20gostaria%20de%20conversar%20sobre%20uma%20solu%C3%A7%C3%A3o%20de%20automa%C3%A7%C3%A3o%20industrial." target="_blank" class="whatsapp-btn" aria-label="Falar no WhatsApp">
-    <i data-lucide="message-circle" size="32"></i>
-  </a>
-
-  <!-- ==========================================================================
-     JAVASCRIPT NATIVO (INTERATIVIDADE E VALIDAÇÃO)
-     ========================================================================== -->
-  <script>
-    // Inicialização dos Ícones Lucide
-    lucide.createIcons();
-
-    // Header sticky com mudança de estilo no scroll
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // Menu Mobile Toggle
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navMenu = document.getElementById('navMenu');
-
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-
-    // Fechar menu mobile ao clicar em um link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-      });
-    });
-
-    // Nome do arquivo selecionado no upload
-    const fileInput = document.getElementById('fileInput');
-    const fileName = document.getElementById('fileName');
-
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        fileName.textContent = 'Arquivo selecionado: ' + e.target.files[0].name;
-      }
-    });
-
-    // Manipulação do envio do formulário de leads
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      
-      // Oculta o formulário e mostra a mensagem de sucesso
-      document.getElementById('leadForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
-
-      // Aqui você pode futuramente integrar com APIs como Webhooks do Formspree, RD Station, HubSpot ou N8N:
-      /*
-      fetch('SUA_URL_DE_WEBHOOK', {
-        method: 'POST',
-        body: JSON.stringify({
-          empresa: document.getElementById('empresa').value,
-          responsavel: document.getElementById('responsavel').value,
-          cargo: document.getElementById('cargo').value,
-          email: document.getElementById('email').value,
-          telefone: document.getElementById('telefone').value,
-          area: document.getElementById('area').value,
-          descricao: document.getElementById('descricao').value
-        })
-      });
-      */
-    }
-  </script>
-</body>
-</html>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0,
+user-scalable=yes&quot;&gt;
+&lt;title&gt;Central de Iluminação IoT&lt;/title&gt;
+&lt;!-- Paho MQTT via CDN --&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/paho-
+mqtt/1.0.1/mqttws31.min.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* reset &amp; base */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: &#39;Inter&#39;, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Helvetica,
+Arial, sans-serif;
+}
+
+body {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: linear-gradient(145deg, #d4eaff 0%, #f0f9ff 100%);
+padding: 1.5rem;
+margin: 0;
+}
+
+/* card principal - glassmorphism */
+.glass-card {
+
+max-width: 680px;
+width: 100%;
+background: rgba(255, 255, 255, 0.48);
+backdrop-filter: blur(14px) saturate(180%);
+-webkit-backdrop-filter: blur(14px) saturate(180%);
+border-radius: 2.5rem;
+border: 1px solid rgba(255, 255, 255, 0.6);
+box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25), 0 8px 24px -6px rgba(0, 40, 80, 0.08);
+padding: 2rem 2.2rem;
+transition: all 0.25s ease;
+}
+
+@media (max-width: 480px) {
+.glass-card {
+padding: 1.6rem 1.2rem;
+border-radius: 2rem;
+}
+}
+
+/* cabeçalho */
+.header {
+display: flex;
+flex-wrap: wrap;
+align-items: baseline;
+justify-content: space-between;
+margin-bottom: 1.8rem;
+}
+
+.title-group {
+display: flex;
+flex-direction: column;
+
+}
+
+.title-main {
+font-size: 1.8rem;
+font-weight: 600;
+letter-spacing: -0.02em;
+color: #0b2b44;
+line-height: 1.2;
+}
+
+.title-sub {
+font-size: 0.9rem;
+font-weight: 400;
+color: #3d5a73;
+opacity: 0.8;
+margin-top: 0.1rem;
+letter-spacing: 0.2px;
+}
+
+/* pill de status */
+.status-pill {
+display: inline-flex;
+align-items: center;
+gap: 0.5rem;
+background: rgba(255, 255, 255, 0.5);
+backdrop-filter: blur(4px);
+-webkit-backdrop-filter: blur(4px);
+padding: 0.45rem 1.1rem 0.45rem 0.9rem;
+border-radius: 60px;
+border: 1px solid rgba(255, 255, 255, 0.8);
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+font-size: 0.85rem;
+font-weight: 500;
+color: #1e2f3f;
+transition: all 0.2s;
+}
+
+.status-dot {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background: #fbbf24; /* amarelo padrão */
+box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+transition: background 0.3s, box-shadow 0.3s;
+flex-shrink: 0;
+}
+
+.status-dot.online {
+background: #10b981;
+box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3), 0 0 12px #10b98166;
+}
+
+.status-dot.offline {
+background: #ef4444;
+box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.status-dot.sync {
+background: #fbbf24;
+animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+0% { opacity: 0.6; transform: scale(0.95); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.1); }
+100% { opacity: 0.6; transform: scale(0.95); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+}
+
+.status-text {
+white-space: nowrap;
+}
+
+/* tópico */
+.topic-area {
+margin: 1.2rem 0 1.8rem 0;
+}
+
+.topic-label {
+display: block;
+font-size: 0.75rem;
+font-weight: 600;
+letter-spacing: 0.4px;
+text-transform: uppercase;
+color: #2c4b66;
+opacity: 0.7;
+margin-bottom: 0.4rem;
+}
+
+.topic-input {
+width: 100%;
+padding: 0.8rem 1.2rem;
+background: rgba(255, 255, 255, 0.5);
+backdrop-filter: blur(4px);
+
+-webkit-backdrop-filter: blur(4px);
+border: 1px solid rgba(255, 255, 255, 0.7);
+border-radius: 60px;
+font-size: 0.95rem;
+font-weight: 450;
+color: #0b2b44;
+outline: none;
+transition: all 0.2s;
+box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.01);
+}
+
+.topic-input:focus {
+border-color: #7aa9d9;
+background: rgba(255, 255, 255, 0.7);
+box-shadow: 0 0 0 4px rgba(58, 130, 200, 0.08);
+}
+
+/* LED preview */
+.led-preview {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 0.8rem 0 1.2rem 0;
+}
+
+.led-circle {
+width: 140px;
+height: 140px;
+border-radius: 50%;
+background: #cbdde9; /* cinza azulado inativo */
+
+box-shadow: inset 0 6px 12px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.02);
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.5s ease, transform
+0.2s;
+color: #2e4a62;
+font-size: 0.9rem;
+font-weight: 450;
+letter-spacing: 0.3px;
+text-align: center;
+padding: 0 0.8rem;
+will-change: transform;
+}
+
+.led-circle.active {
+background: #0088ff; /* azul neon */
+box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff66, 0 0 100px #0088ff33, inset 0 -4px
+12px rgba(255,255,255,0.2);
+color: white;
+text-shadow: 0 2px 12px rgba(0,0,0,0.1);
+animation: glow-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+0% { box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff55, 0 0 100px #0088ff22; }
+50% { box-shadow: 0 0 40px #0088ffdd, 0 0 80px #0088ff88, 0 0 120px #0088ff44; }
+100% { box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff55, 0 0 100px #0088ff22; }
+}
+
+.led-circle.inactive {
+background: #cbdde9;
+
+box-shadow: inset 0 4px 8px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.02);
+color: #3a5a72;
+}
+
+/* botoes */
+.actions {
+display: flex;
+gap: 1rem;
+margin-top: 1.8rem;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.btn {
+flex: 1 1 140px;
+min-width: 120px;
+padding: 0.9rem 0.8rem;
+border: none;
+border-radius: 60px;
+font-size: 1.1rem;
+font-weight: 500;
+letter-spacing: 0.4px;
+color: white;
+background: #b0c9dd;
+box-shadow: 0 6px 16px rgba(0, 20, 40, 0.04);
+transition: all 0.2s ease;
+cursor: default;
+opacity: 0.5;
+transform: scale(0.98);
+backdrop-filter: blur(2px);
+-webkit-backdrop-filter: blur(2px);
+
+border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn.enabled {
+cursor: pointer;
+opacity: 1;
+transform: scale(1);
+box-shadow: 0 8px 24px rgba(0, 40, 80, 0.08);
+}
+
+.btn.enabled:active {
+transform: scale(0.94);
+}
+
+.btn-on {
+background: #2d8f6f; /* verde esmeralda suave */
+border-color: #6bbaa0;
+}
+
+.btn-on.enabled:hover {
+background: #1f7a5d;
+box-shadow: 0 8px 24px #2d8f6f44;
+}
+
+.btn-off {
+background: #bf7a7a; /* coral suave */
+border-color: #dba8a8;
+}
+
+.btn-off.enabled:hover {
+background: #ac6363;
+
+box-shadow: 0 8px 24px #bf7a7a44;
+}
+
+.btn:disabled {
+opacity: 0.4;
+cursor: not-allowed;
+transform: scale(0.96);
+}
+
+/* pequenos ajustes */
+.flex-spacer {
+flex: 1;
+}
+
+.text-muted {
+color: #4b6d88;
+font-weight: 400;
+}
+
+/* responsividade */
+@media (max-width: 500px) {
+.title-main {
+font-size: 1.5rem;
+}
+.status-pill {
+font-size: 0.75rem;
+padding: 0.3rem 0.9rem 0.3rem 0.7rem;
+}
+.led-circle {
+width: 110px;
+height: 110px;
+
+font-size: 0.8rem;
+}
+.btn {
+font-size: 1rem;
+padding: 0.8rem 0.4rem;
+min-width: 100px;
+}
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;glass-card&quot;&gt;
+
+&lt;!-- cabeçalho --&gt;
+&lt;div class=&quot;header&quot;&gt;
+&lt;div class=&quot;title-group&quot;&gt;
+&lt;span class=&quot;title-main&quot;&gt;�� Central de Iluminação&lt;/span&gt;
+&lt;span class=&quot;title-sub&quot;&gt;Controle de Hardware · Porta 13&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;status-pill&quot; id=&quot;statusPill&quot;&gt;
+&lt;span class=&quot;status-dot sync&quot; id=&quot;statusDot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;status-text&quot; id=&quot;statusText&quot;&gt;Sincronizando...&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- tópico --&gt;
+&lt;div class=&quot;topic-area&quot;&gt;
+&lt;label class=&quot;topic-label&quot; for=&quot;topicInput&quot;&gt;�� Tópico MQTT&lt;/label&gt;
+&lt;input class=&quot;topic-input&quot; id=&quot;topicInput&quot; type=&quot;text&quot;
+value=&quot;gerry_sanchez_led_exclusivo/arduino&quot; spellcheck=&quot;false&quot;&gt;
+
+&lt;/div&gt;
+
+&lt;!-- LED preview --&gt;
+&lt;div class=&quot;led-preview&quot;&gt;
+&lt;div class=&quot;led-circle inactive&quot; id=&quot;ledCircle&quot;&gt;Dispositivo Inativo&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ações --&gt;
+&lt;div class=&quot;actions&quot;&gt;
+&lt;button class=&quot;btn btn-on&quot; id=&quot;btnOn&quot; disabled&gt;�� LIGAR&lt;/button&gt;
+&lt;button class=&quot;btn btn-off&quot; id=&quot;btnOff&quot; disabled&gt;⏻ DESLIGAR&lt;/button&gt;
+&lt;/div&gt;
+&lt;div style=&quot;margin-top: 1rem; text-align: center; font-size: 0.7rem; color: #6a8aa3; opacity:
+0.5; letter-spacing: 0.3px;&quot;&gt;
+&lt;span&gt;atualização via MQTT · broker.hivemq.com&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+// --- DOM refs ---
+const statusDot = document.getElementById(&#39;statusDot&#39;);
+const statusText = document.getElementById(&#39;statusText&#39;);
+const ledCircle = document.getElementById(&#39;ledCircle&#39;);
+const btnOn = document.getElementById(&#39;btnOn&#39;);
+const btnOff = document.getElementById(&#39;btnOff&#39;);
+const topicInput = document.getElementById(&#39;topicInput&#39;);
+
+// --- estado interno ---
+let currentTopic = topicInput.value.trim();
+let client = null;
+
+let isConnected = false;
+let ledState = 0; // 0 = off, 1 = on
+
+// --- helpers UI ---
+function setStatus(mode, msg) {
+// mode: &#39;sync&#39;, &#39;online&#39;, &#39;offline&#39;
+statusDot.className = &#39;status-dot&#39;;
+if (mode === &#39;sync&#39;) {
+statusDot.classList.add(&#39;sync&#39;);
+statusText.textContent = msg || &#39;Sincronizando...&#39;;
+} else if (mode === &#39;online&#39;) {
+statusDot.classList.add(&#39;online&#39;);
+statusText.textContent = msg || &#39;Sistema Online&#39;;
+} else if (mode === &#39;offline&#39;) {
+statusDot.classList.add(&#39;offline&#39;);
+statusText.textContent = msg || &#39;Desconectado&#39;;
+}
+}
+
+function setButtonsEnabled(enabled) {
+if (enabled) {
+btnOn.disabled = false;
+btnOff.disabled = false;
+btnOn.classList.add(&#39;enabled&#39;);
+btnOff.classList.add(&#39;enabled&#39;);
+} else {
+btnOn.disabled = true;
+btnOff.disabled = true;
+btnOn.classList.remove(&#39;enabled&#39;);
+btnOff.classList.remove(&#39;enabled&#39;);
+}
+
+}
+
+function updateLedUI(state) {
+if (state === 1) {
+ledCircle.className = &#39;led-circle active&#39;;
+ledCircle.textContent = &#39;Dispositivo Ativo&#39;;
+} else {
+ledCircle.className = &#39;led-circle inactive&#39;;
+ledCircle.textContent = &#39;Dispositivo Inativo&#39;;
+}
+}
+
+// --- MQTT lógica ---
+function connectMqtt() {
+if (client) {
+try { client.disconnect(); } catch (_) {}
+client = null;
+}
+
+const clientId = &#39;web_&#39; + Math.random().toString(16).substring(2, 10) + &#39;_&#39; +
+Date.now().toString(36);
+const broker = &#39;broker.hivemq.com&#39;;
+const port = 8884;
+
+client = new Paho.MQTT.Client(broker, port, clientId);
+client.useSSL = true;
+
+const onConnect = () =&gt; {
+isConnected = true;
+setStatus(&#39;online&#39;, &#39;Sistema Online&#39;);
+setButtonsEnabled(true);
+
+// inscreve no tópico atual
+const topic = currentTopic;
+if (topic &amp;&amp; topic.length &gt; 0) {
+client.subscribe(topic, { qos: 0 });
+console.log(&#39;[MQTT] inscrito em:&#39;, topic);
+}
+// publica um status inicial? não obrigatório
+};
+
+const onFailure = (err) =&gt; {
+isConnected = false;
+setStatus(&#39;offline&#39;, &#39;Falha na conexão&#39;);
+setButtonsEnabled(false);
+console.warn(&#39;[MQTT] erro conexão:&#39;, err);
+// tenta reconectar após 5s
+setTimeout(() =&gt; {
+if (!isConnected) {
+connectMqtt();
+}
+}, 5000);
+};
+
+const onMessageArrived = (message) =&gt; {
+const payload = message.payloadString.trim();
+const topic = message.destinationName;
+console.log(`[MQTT] mensagem em ${topic}:`, payload);
+
+// só atualiza se for o tópico atual
+if (topic === currentTopic) {
+if (payload === &#39;1&#39;) {
+ledState = 1;
+
+updateLedUI(1);
+} else if (payload === &#39;0&#39;) {
+ledState = 0;
+updateLedUI(0);
+} else {
+// ignora outros valores
+}
+}
+};
+
+client.onConnectionLost = (response) =&gt; {
+isConnected = false;
+setStatus(&#39;offline&#39;, &#39;Conexão perdida&#39;);
+setButtonsEnabled(false);
+console.warn(&#39;[MQTT] conexão perdida&#39;, response);
+// tenta reconectar
+setTimeout(() =&gt; {
+if (!isConnected) {
+connectMqtt();
+}
+}, 4000);
+};
+
+client.onMessageArrived = onMessageArrived;
+
+const options = {
+timeout: 10,
+onSuccess: onConnect,
+onFailure: onFailure,
+useSSL: true,
+};
+
+client.connect(options);
+}
+
+// --- desinscrever e assinar novo tópico ---
+function switchTopic(newTopic) {
+if (!client || !isConnected) return;
+if (!newTopic || newTopic.length === 0) return;
+
+// desinscreve do antigo se existir
+const oldTopic = currentTopic;
+if (oldTopic &amp;&amp; oldTopic.length &gt; 0 &amp;&amp; oldTopic !== newTopic) {
+try {
+client.unsubscribe(oldTopic, { qos: 0 });
+console.log(&#39;[MQTT] desinscrito de:&#39;, oldTopic);
+} catch (e) {
+console.warn(&#39;[MQTT] erro ao desinscrever&#39;, e);
+}
+}
+
+// inscreve no novo
+try {
+client.subscribe(newTopic, { qos: 0 });
+console.log(&#39;[MQTT] inscrito em:&#39;, newTopic);
+currentTopic = newTopic;
+// Não muda estado do LED, apenas aguarda mensagem
+} catch (e) {
+console.warn(&#39;[MQTT] erro ao inscrever&#39;, e);
+}
+}
+
+// --- publicar comando ---
+function publishCommand(value) {
+if (!client || !isConnected) {
+console.warn(&#39;[MQTT] não conectado&#39;);
+return;
+}
+const topic = currentTopic;
+if (!topic || topic.length === 0) {
+console.warn(&#39;[MQTT] tópico inválido&#39;);
+return;
+}
+const msg = new Paho.MQTT.Message(String(value));
+msg.destinationName = topic;
+msg.qos = 0;
+client.send(msg);
+console.log(`[MQTT] publicado &#39;${value}&#39; em ${topic}`);
+}
+
+// --- eventos UI ---
+function handleTopicChange() {
+const newTopic = topicInput.value.trim();
+if (newTopic === currentTopic) return;
+if (newTopic.length === 0) return;
+// se conectado, faz a troca
+if (isConnected &amp;&amp; client) {
+switchTopic(newTopic);
+} else {
+// apenas atualiza a referência para quando conectar
+currentTopic = newTopic;
+}
+}
+
+// --- inicialização e eventos ---
+function init() {
+// seta estado inicial
+setStatus(&#39;sync&#39;, &#39;Sincronizando...&#39;);
+setButtonsEnabled(false);
+updateLedUI(0);
+ledState = 0;
+
+// conecta MQTT
+connectMqtt();
+
+// eventos dos botões
+btnOn.addEventListener(&#39;click&#39;, function(e) {
+if (!isConnected) return;
+publishCommand(&#39;1&#39;);
+// NÃO altera o LED localmente
+});
+
+btnOff.addEventListener(&#39;click&#39;, function(e) {
+if (!isConnected) return;
+publishCommand(&#39;0&#39;);
+// NÃO altera o LED localmente
+});
+
+// evento de mudança no tópico (com debounce)
+let topicTimeout = null;
+topicInput.addEventListener(&#39;input&#39;, function() {
+clearTimeout(topicTimeout);
+topicTimeout = setTimeout(() =&gt; {
+handleTopicChange();
+
+}, 400);
+});
+
+// se perder o foco, aplica imediatamente
+topicInput.addEventListener(&#39;blur&#39;, function() {
+clearTimeout(topicTimeout);
+handleTopicChange();
+});
+
+// reconexão manual caso precise (ex: botão oculto?)
+// mas já temos reconexão automática
+}
+
+// inicia
+init();
+
+// expor para debug (opcional)
+window.__iot = { client, connectMqtt, publishCommand, currentTopic };
+})();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
