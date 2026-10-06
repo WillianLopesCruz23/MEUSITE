@@ -1,628 +1,158 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;pt-BR&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0,
-user-scalable=yes&quot;&gt;
-&lt;title&gt;Central de Iluminação IoT&lt;/title&gt;
-&lt;!-- Paho MQTT via CDN --&gt;
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/paho-
-mqtt/1.0.1/mqttws31.min.js&quot;&gt;&lt;/script&gt;
-&lt;style&gt;
-/* reset &amp; base */
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: &#39;Inter&#39;, -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Helvetica,
-Arial, sans-serif;
-}
-
-body {
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-background: linear-gradient(145deg, #d4eaff 0%, #f0f9ff 100%);
-padding: 1.5rem;
-margin: 0;
-}
-
-/* card principal - glassmorphism */
-.glass-card {
-
-max-width: 680px;
-width: 100%;
-background: rgba(255, 255, 255, 0.48);
-backdrop-filter: blur(14px) saturate(180%);
--webkit-backdrop-filter: blur(14px) saturate(180%);
-border-radius: 2.5rem;
-border: 1px solid rgba(255, 255, 255, 0.6);
-box-shadow: 0 20px 40px -12px rgba(0, 20, 40, 0.25), 0 8px 24px -6px rgba(0, 40, 80, 0.08);
-padding: 2rem 2.2rem;
-transition: all 0.25s ease;
-}
-
-@media (max-width: 480px) {
-.glass-card {
-padding: 1.6rem 1.2rem;
-border-radius: 2rem;
-}
-}
-
-/* cabeçalho */
-.header {
-display: flex;
-flex-wrap: wrap;
-align-items: baseline;
-justify-content: space-between;
-margin-bottom: 1.8rem;
-}
-
-.title-group {
-display: flex;
-flex-direction: column;
-
-}
-
-.title-main {
-font-size: 1.8rem;
-font-weight: 600;
-letter-spacing: -0.02em;
-color: #0b2b44;
-line-height: 1.2;
-}
-
-.title-sub {
-font-size: 0.9rem;
-font-weight: 400;
-color: #3d5a73;
-opacity: 0.8;
-margin-top: 0.1rem;
-letter-spacing: 0.2px;
-}
-
-/* pill de status */
-.status-pill {
-display: inline-flex;
-align-items: center;
-gap: 0.5rem;
-background: rgba(255, 255, 255, 0.5);
-backdrop-filter: blur(4px);
--webkit-backdrop-filter: blur(4px);
-padding: 0.45rem 1.1rem 0.45rem 0.9rem;
-border-radius: 60px;
-border: 1px solid rgba(255, 255, 255, 0.8);
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-
-font-size: 0.85rem;
-font-weight: 500;
-color: #1e2f3f;
-transition: all 0.2s;
-}
-
-.status-dot {
-width: 12px;
-height: 12px;
-border-radius: 50%;
-background: #fbbf24; /* amarelo padrão */
-box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
-transition: background 0.3s, box-shadow 0.3s;
-flex-shrink: 0;
-}
-
-.status-dot.online {
-background: #10b981;
-box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3), 0 0 12px #10b98166;
-}
-
-.status-dot.offline {
-background: #ef4444;
-box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
-}
-
-.status-dot.sync {
-background: #fbbf24;
-animation: pulse-dot 1.2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-0% { opacity: 0.6; transform: scale(0.95); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
-50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.1); }
-100% { opacity: 0.6; transform: scale(0.95); box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
-}
-
-.status-text {
-white-space: nowrap;
-}
-
-/* tópico */
-.topic-area {
-margin: 1.2rem 0 1.8rem 0;
-}
-
-.topic-label {
-display: block;
-font-size: 0.75rem;
-font-weight: 600;
-letter-spacing: 0.4px;
-text-transform: uppercase;
-color: #2c4b66;
-opacity: 0.7;
-margin-bottom: 0.4rem;
-}
-
-.topic-input {
-width: 100%;
-padding: 0.8rem 1.2rem;
-background: rgba(255, 255, 255, 0.5);
-backdrop-filter: blur(4px);
-
--webkit-backdrop-filter: blur(4px);
-border: 1px solid rgba(255, 255, 255, 0.7);
-border-radius: 60px;
-font-size: 0.95rem;
-font-weight: 450;
-color: #0b2b44;
-outline: none;
-transition: all 0.2s;
-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.01);
-}
-
-.topic-input:focus {
-border-color: #7aa9d9;
-background: rgba(255, 255, 255, 0.7);
-box-shadow: 0 0 0 4px rgba(58, 130, 200, 0.08);
-}
-
-/* LED preview */
-.led-preview {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-padding: 0.8rem 0 1.2rem 0;
-}
-
-.led-circle {
-width: 140px;
-height: 140px;
-border-radius: 50%;
-background: #cbdde9; /* cinza azulado inativo */
-
-box-shadow: inset 0 6px 12px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.02);
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.5s ease, transform
-0.2s;
-color: #2e4a62;
-font-size: 0.9rem;
-font-weight: 450;
-letter-spacing: 0.3px;
-text-align: center;
-padding: 0 0.8rem;
-will-change: transform;
-}
-
-.led-circle.active {
-background: #0088ff; /* azul neon */
-box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff66, 0 0 100px #0088ff33, inset 0 -4px
-12px rgba(255,255,255,0.2);
-color: white;
-text-shadow: 0 2px 12px rgba(0,0,0,0.1);
-animation: glow-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-0% { box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff55, 0 0 100px #0088ff22; }
-50% { box-shadow: 0 0 40px #0088ffdd, 0 0 80px #0088ff88, 0 0 120px #0088ff44; }
-100% { box-shadow: 0 0 30px #0088ffaa, 0 0 60px #0088ff55, 0 0 100px #0088ff22; }
-}
-
-.led-circle.inactive {
-background: #cbdde9;
-
-box-shadow: inset 0 4px 8px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.02);
-color: #3a5a72;
-}
-
-/* botoes */
-.actions {
-display: flex;
-gap: 1rem;
-margin-top: 1.8rem;
-flex-wrap: wrap;
-justify-content: center;
-}
-
-.btn {
-flex: 1 1 140px;
-min-width: 120px;
-padding: 0.9rem 0.8rem;
-border: none;
-border-radius: 60px;
-font-size: 1.1rem;
-font-weight: 500;
-letter-spacing: 0.4px;
-color: white;
-background: #b0c9dd;
-box-shadow: 0 6px 16px rgba(0, 20, 40, 0.04);
-transition: all 0.2s ease;
-cursor: default;
-opacity: 0.5;
-transform: scale(0.98);
-backdrop-filter: blur(2px);
--webkit-backdrop-filter: blur(2px);
-
-border: 1px solid rgba(255,255,255,0.2);
-}
-
-.btn.enabled {
-cursor: pointer;
-opacity: 1;
-transform: scale(1);
-box-shadow: 0 8px 24px rgba(0, 40, 80, 0.08);
-}
-
-.btn.enabled:active {
-transform: scale(0.94);
-}
-
-.btn-on {
-background: #2d8f6f; /* verde esmeralda suave */
-border-color: #6bbaa0;
-}
-
-.btn-on.enabled:hover {
-background: #1f7a5d;
-box-shadow: 0 8px 24px #2d8f6f44;
-}
-
-.btn-off {
-background: #bf7a7a; /* coral suave */
-border-color: #dba8a8;
-}
-
-.btn-off.enabled:hover {
-background: #ac6363;
-
-box-shadow: 0 8px 24px #bf7a7a44;
-}
-
-.btn:disabled {
-opacity: 0.4;
-cursor: not-allowed;
-transform: scale(0.96);
-}
-
-/* pequenos ajustes */
-.flex-spacer {
-flex: 1;
-}
-
-.text-muted {
-color: #4b6d88;
-font-weight: 400;
-}
-
-/* responsividade */
-@media (max-width: 500px) {
-.title-main {
-font-size: 1.5rem;
-}
-.status-pill {
-font-size: 0.75rem;
-padding: 0.3rem 0.9rem 0.3rem 0.7rem;
-}
-.led-circle {
-width: 110px;
-height: 110px;
-
-font-size: 0.8rem;
-}
-.btn {
-font-size: 1rem;
-padding: 0.8rem 0.4rem;
-min-width: 100px;
-}
-}
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-&lt;div class=&quot;glass-card&quot;&gt;
-
-&lt;!-- cabeçalho --&gt;
-&lt;div class=&quot;header&quot;&gt;
-&lt;div class=&quot;title-group&quot;&gt;
-&lt;span class=&quot;title-main&quot;&gt;�� Central de Iluminação&lt;/span&gt;
-&lt;span class=&quot;title-sub&quot;&gt;Controle de Hardware · Porta 13&lt;/span&gt;
-&lt;/div&gt;
-&lt;div class=&quot;status-pill&quot; id=&quot;statusPill&quot;&gt;
-&lt;span class=&quot;status-dot sync&quot; id=&quot;statusDot&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;status-text&quot; id=&quot;statusText&quot;&gt;Sincronizando...&lt;/span&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- tópico --&gt;
-&lt;div class=&quot;topic-area&quot;&gt;
-&lt;label class=&quot;topic-label&quot; for=&quot;topicInput&quot;&gt;�� Tópico MQTT&lt;/label&gt;
-&lt;input class=&quot;topic-input&quot; id=&quot;topicInput&quot; type=&quot;text&quot;
-value=&quot;gerry_sanchez_led_exclusivo/arduino&quot; spellcheck=&quot;false&quot;&gt;
-
-&lt;/div&gt;
-
-&lt;!-- LED preview --&gt;
-&lt;div class=&quot;led-preview&quot;&gt;
-&lt;div class=&quot;led-circle inactive&quot; id=&quot;ledCircle&quot;&gt;Dispositivo Inativo&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;!-- ações --&gt;
-&lt;div class=&quot;actions&quot;&gt;
-&lt;button class=&quot;btn btn-on&quot; id=&quot;btnOn&quot; disabled&gt;�� LIGAR&lt;/button&gt;
-&lt;button class=&quot;btn btn-off&quot; id=&quot;btnOff&quot; disabled&gt;⏻ DESLIGAR&lt;/button&gt;
-&lt;/div&gt;
-&lt;div style=&quot;margin-top: 1rem; text-align: center; font-size: 0.7rem; color: #6a8aa3; opacity:
-0.5; letter-spacing: 0.3px;&quot;&gt;
-&lt;span&gt;atualização via MQTT · broker.hivemq.com&lt;/span&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-(function() {
-// --- DOM refs ---
-const statusDot = document.getElementById(&#39;statusDot&#39;);
-const statusText = document.getElementById(&#39;statusText&#39;);
-const ledCircle = document.getElementById(&#39;ledCircle&#39;);
-const btnOn = document.getElementById(&#39;btnOn&#39;);
-const btnOff = document.getElementById(&#39;btnOff&#39;);
-const topicInput = document.getElementById(&#39;topicInput&#39;);
-
-// --- estado interno ---
-let currentTopic = topicInput.value.trim();
-let client = null;
-
-let isConnected = false;
-let ledState = 0; // 0 = off, 1 = on
-
-// --- helpers UI ---
-function setStatus(mode, msg) {
-// mode: &#39;sync&#39;, &#39;online&#39;, &#39;offline&#39;
-statusDot.className = &#39;status-dot&#39;;
-if (mode === &#39;sync&#39;) {
-statusDot.classList.add(&#39;sync&#39;);
-statusText.textContent = msg || &#39;Sincronizando...&#39;;
-} else if (mode === &#39;online&#39;) {
-statusDot.classList.add(&#39;online&#39;);
-statusText.textContent = msg || &#39;Sistema Online&#39;;
-} else if (mode === &#39;offline&#39;) {
-statusDot.classList.add(&#39;offline&#39;);
-statusText.textContent = msg || &#39;Desconectado&#39;;
-}
-}
-
-function setButtonsEnabled(enabled) {
-if (enabled) {
-btnOn.disabled = false;
-btnOff.disabled = false;
-btnOn.classList.add(&#39;enabled&#39;);
-btnOff.classList.add(&#39;enabled&#39;);
-} else {
-btnOn.disabled = true;
-btnOff.disabled = true;
-btnOn.classList.remove(&#39;enabled&#39;);
-btnOff.classList.remove(&#39;enabled&#39;);
-}
-
-}
-
-function updateLedUI(state) {
-if (state === 1) {
-ledCircle.className = &#39;led-circle active&#39;;
-ledCircle.textContent = &#39;Dispositivo Ativo&#39;;
-} else {
-ledCircle.className = &#39;led-circle inactive&#39;;
-ledCircle.textContent = &#39;Dispositivo Inativo&#39;;
-}
-}
-
-// --- MQTT lógica ---
-function connectMqtt() {
-if (client) {
-try { client.disconnect(); } catch (_) {}
-client = null;
-}
-
-const clientId = &#39;web_&#39; + Math.random().toString(16).substring(2, 10) + &#39;_&#39; +
-Date.now().toString(36);
-const broker = &#39;broker.hivemq.com&#39;;
-const port = 8884;
-
-client = new Paho.MQTT.Client(broker, port, clientId);
-client.useSSL = true;
-
-const onConnect = () =&gt; {
-isConnected = true;
-setStatus(&#39;online&#39;, &#39;Sistema Online&#39;);
-setButtonsEnabled(true);
-
-// inscreve no tópico atual
-const topic = currentTopic;
-if (topic &amp;&amp; topic.length &gt; 0) {
-client.subscribe(topic, { qos: 0 });
-console.log(&#39;[MQTT] inscrito em:&#39;, topic);
-}
-// publica um status inicial? não obrigatório
-};
-
-const onFailure = (err) =&gt; {
-isConnected = false;
-setStatus(&#39;offline&#39;, &#39;Falha na conexão&#39;);
-setButtonsEnabled(false);
-console.warn(&#39;[MQTT] erro conexão:&#39;, err);
-// tenta reconectar após 5s
-setTimeout(() =&gt; {
-if (!isConnected) {
-connectMqtt();
-}
-}, 5000);
-};
-
-const onMessageArrived = (message) =&gt; {
-const payload = message.payloadString.trim();
-const topic = message.destinationName;
-console.log(`[MQTT] mensagem em ${topic}:`, payload);
-
-// só atualiza se for o tópico atual
-if (topic === currentTopic) {
-if (payload === &#39;1&#39;) {
-ledState = 1;
-
-updateLedUI(1);
-} else if (payload === &#39;0&#39;) {
-ledState = 0;
-updateLedUI(0);
-} else {
-// ignora outros valores
-}
-}
-};
-
-client.onConnectionLost = (response) =&gt; {
-isConnected = false;
-setStatus(&#39;offline&#39;, &#39;Conexão perdida&#39;);
-setButtonsEnabled(false);
-console.warn(&#39;[MQTT] conexão perdida&#39;, response);
-// tenta reconectar
-setTimeout(() =&gt; {
-if (!isConnected) {
-connectMqtt();
-}
-}, 4000);
-};
-
-client.onMessageArrived = onMessageArrived;
-
-const options = {
-timeout: 10,
-onSuccess: onConnect,
-onFailure: onFailure,
-useSSL: true,
-};
-
-client.connect(options);
-}
-
-// --- desinscrever e assinar novo tópico ---
-function switchTopic(newTopic) {
-if (!client || !isConnected) return;
-if (!newTopic || newTopic.length === 0) return;
-
-// desinscreve do antigo se existir
-const oldTopic = currentTopic;
-if (oldTopic &amp;&amp; oldTopic.length &gt; 0 &amp;&amp; oldTopic !== newTopic) {
-try {
-client.unsubscribe(oldTopic, { qos: 0 });
-console.log(&#39;[MQTT] desinscrito de:&#39;, oldTopic);
-} catch (e) {
-console.warn(&#39;[MQTT] erro ao desinscrever&#39;, e);
-}
-}
-
-// inscreve no novo
-try {
-client.subscribe(newTopic, { qos: 0 });
-console.log(&#39;[MQTT] inscrito em:&#39;, newTopic);
-currentTopic = newTopic;
-// Não muda estado do LED, apenas aguarda mensagem
-} catch (e) {
-console.warn(&#39;[MQTT] erro ao inscrever&#39;, e);
-}
-}
-
-// --- publicar comando ---
-function publishCommand(value) {
-if (!client || !isConnected) {
-console.warn(&#39;[MQTT] não conectado&#39;);
-return;
-}
-const topic = currentTopic;
-if (!topic || topic.length === 0) {
-console.warn(&#39;[MQTT] tópico inválido&#39;);
-return;
-}
-const msg = new Paho.MQTT.Message(String(value));
-msg.destinationName = topic;
-msg.qos = 0;
-client.send(msg);
-console.log(`[MQTT] publicado &#39;${value}&#39; em ${topic}`);
-}
-
-// --- eventos UI ---
-function handleTopicChange() {
-const newTopic = topicInput.value.trim();
-if (newTopic === currentTopic) return;
-if (newTopic.length === 0) return;
-// se conectado, faz a troca
-if (isConnected &amp;&amp; client) {
-switchTopic(newTopic);
-} else {
-// apenas atualiza a referência para quando conectar
-currentTopic = newTopic;
-}
-}
-
-// --- inicialização e eventos ---
-function init() {
-// seta estado inicial
-setStatus(&#39;sync&#39;, &#39;Sincronizando...&#39;);
-setButtonsEnabled(false);
-updateLedUI(0);
-ledState = 0;
-
-// conecta MQTT
-connectMqtt();
-
-// eventos dos botões
-btnOn.addEventListener(&#39;click&#39;, function(e) {
-if (!isConnected) return;
-publishCommand(&#39;1&#39;);
-// NÃO altera o LED localmente
-});
-
-btnOff.addEventListener(&#39;click&#39;, function(e) {
-if (!isConnected) return;
-publishCommand(&#39;0&#39;);
-// NÃO altera o LED localmente
-});
-
-// evento de mudança no tópico (com debounce)
-let topicTimeout = null;
-topicInput.addEventListener(&#39;input&#39;, function() {
-clearTimeout(topicTimeout);
-topicTimeout = setTimeout(() =&gt; {
-handleTopicChange();
-
-}, 400);
-});
-
-// se perder o foco, aplica imediatamente
-topicInput.addEventListener(&#39;blur&#39;, function() {
-clearTimeout(topicTimeout);
-handleTopicChange();
-});
-
-// reconexão manual caso precise (ex: botão oculto?)
-// mas já temos reconexão automática
-}
-
-// inicia
-init();
-
-// expor para debug (opcional)
-window.__iot = { client, connectMqtt, publishCommand, currentTopic };
-})();
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Central IoT - Casa Inteligente</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+  <style>
+    :root {
+      --bg: #e0f2fe;
+      --card-bg: #ffffff;
+      --primary: #0284c7;
+      --text: #1e293b;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+    h1 { color: #0369a1; margin-bottom: 5px; }
+    .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.9em; }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .status-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+      margin-bottom: 10px;
+      transition: background 0.3s;
+    }
+    .status-dot.active { background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
+    .btn-group { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-on { background-color: #0284c7; color: white; }
+    .btn-off { background-color: #f1f5f9; color: #475569; }
+    button:hover { opacity: 0.85; }
+    input[type=range] { width: 100%; margin-top: 15px; }
+    .sensor-val { font-size: 2.5em; font-weight: bold; color: #0284c7; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Central IoT de Iluminação</h1>
+  <div class="subtitle">Conectado via MQTT (HiveMQ Cloud)</div>
+
+  <div class="container">
+    <!-- Sala -->
+    <div class="card">
+      <div id="dot-sala" class="status-dot"></div>
+      <h3>🛋️ Sala (Pino 8)</h3>
+      <div class="btn-group">
+        <button class="btn-on" onclick="sendCmd('sala', '1')">Ligar</button>
+        <button class="btn-off" onclick="sendCmd('sala', '0')">Desligar</button>
+      </div>
+    </div>
+
+    <!-- Quarto -->
+    <div class="card">
+      <div id="dot-quarto" class="status-dot"></div>
+      <h3>🛏️ Quarto (Pino 10)</h3>
+      <div class="btn-group">
+        <button class="btn-on" onclick="sendCmd('quarto', '1')">Ligar</button>
+        <button class="btn-off" onclick="sendCmd('quarto', '0')">Desligar</button>
+      </div>
+      <input type="range" min="0" max="255" value="0" onchange="sendPWM(this.value)">
+      <span>Dimmer: <span id="pwm-val">0</span>%</span>
+    </div>
+
+    <!-- Cozinha -->
+    <div class="card">
+      <div id="dot-cozinha" class="status-dot"></div>
+      <h3>🍳 Cozinha (Pino 13)</h3>
+      <div class="btn-group">
+        <button class="btn-on" onclick="sendCmd('cozinha', '1')">Ligar</button>
+        <button class="btn-off" onclick="sendCmd('cozinha', '0')">Desligar</button>
+      </div>
+    </div>
+
+    <!-- Telemetria Analógica -->
+    <div class="card">
+      <h3>📈 Leitura do Sensor (A0)</h3>
+      <div id="sensor-display" class="sensor-val">--</div>
+      <small>Atualização contínua via MQTT</small>
+    </div>
+  </div>
+
+  <script>
+    // 🚨 USE O MESMO PREFIXO DEFINIDO NO SCRIPT PYTHON
+    const PREFIXO = "minha_bancada_123";
+
+    const client = new Paho.MQTT.Client("broker.hivemq.com", Number(8000), "web_" + Math.random().toString(16).substr(2, 8));
+
+    client.onConnectionLost = (responseObject) => {
+      console.log("Conexão perdida: " + responseObject.errorMessage);
+    };
+
+    client.onMessageArrived = (message) => {
+      if (message.destinationName === `${PREFIXO}/casa/sensor`) {
+        document.getElementById("sensor-display").innerText = message.payloadString;
+      }
+    };
+
+    client.connect({
+      onSuccess: () => {
+        console.log("Conectado ao Broker MQTT via WebSockets");
+        client.subscribe(`${PREFIXO}/casa/sensor`);
+      }
+    });
+
+    function sendCmd(comodo, valor) {
+      const topic = `${PREFIXO}/casa/${comodo}/set`;
+      const message = new Paho.MQTT.Message(valor);
+      message.destinationName = topic;
+      client.send(message);
+
+      const dot = document.getElementById(`dot-${comodo}`);
+      if (dot) {
+        if (valor === '1') dot.classList.add('active');
+        else dot.classList.remove('active');
+      }
+    }
+
+    function sendPWM(val) {
+      document.getElementById('pwm-val').innerText = Math.round((val / 255) * 100);
+      const message = new Paho.MQTT.Message("PWM:" + val);
+      message.destinationName = `${PREFIXO}/casa/quarto/set`;
+      client.send(message);
+    }
+  </script>
+</body>
+</html>
