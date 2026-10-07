@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Iluminação IoT</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #eef2f5; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .container { background: #ffffff; width: 100%; max-width: 500px; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    h1 { font-size: 1.5rem; text-align: center; color: #1e3a8a; margin-bottom: 20px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .status-dot { width: 12px; height: 12px; border-radius: 50%; background-color: #cbd5e1; transition: background 0.3s; }
+    .status-dot.active { background-color: #22c55e; box-shadow: 0 0 8px #22c55e; }
+    .btn { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: #3b82f6; color: white; transition: 0.2s; }
+    .btn:hover { background: #2563eb; }
+    .btn.off { background: #ef4444; }
+    .btn.off:hover { background: #dc2626; }
+    input[type=range] { width: 100%; margin: 10px 0; }
+    .sensor-val { font-size: 1.8rem; font-weight: bold; color: #0284c7; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🛋️ Central de Iluminação</h1>
+
+  <!-- LED 1: Sala (Pino 8) -->
+  <div class="card">
+    <div class="card-header">
+      <span>🛋️ Sala (Pino 8)</span>
+      <div id="dot-sala" class="status-dot"></div>
+    </div>
+    <button id="btn-sala" class="btn" onclick="toggleLed('sala')">Ligar Sala</button>
+  </div>
+
+  <!-- LED 2: Quarto (Pino 10 - PWM) -->
+  <div class="card">
+    <div class="card-header">
+      <span>🛏️ Quarto (Pino 10 - PWM)</span>
+      <div id="dot-quarto" class="status-dot"></div>
+    </div>
+    <input type="range" id="slider-quarto" min="0" max="100" value="0" oninput="updateQuarto(this.value)">
+    <p style="text-align: center;">Intensidade: <span id="pwm-val">0</span>%</p>
+  </div>
+
+  <!-- LED 3: Cozinha (Pino 13) -->
+  <div class="card">
+    <div class="card-header">
+      <span>🍳 Cozinha (Pino 13)</span>
+      <div id="dot-cozinha" class="status-dot"></div>
+    </div>
+    <button id="btn-cozinha" class="btn" onclick="toggleLed('cozinha')">Ligar Cozinha</button>
+  </div>
+
+  <!-- Sensor A0 -->
+  <div class="card">
+    <div class="card-header">
+      <span>📊 Leitura Analógica (A0)</span>
+    </div>
+    <div class="sensor-val" id="sensor-val">0</div>
+  </div>
+</div>
+
+<script>
+  // 🚨 PERSONALIZE A SUA BANCADA PARA EVITAR LINHA CRUZADA
+  const BANCADA = "minha_bancada_123"; 
+
+  const client = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
+
+  let estadoSala = false;
+  let estadoCozinha = false;
+
+  client.on('connect', () => {
+    console.log('Conectado ao Broker HiveMQ!');
+    client.subscribe(`${BANCADA}/casa/analogico/a0`);
+  });
+
+  client.on('message', (topic, message) => {
+    if (topic === `${BANCADA}/casa/analogico/a0`) {
+      document.getElementById('sensor-val').innerText = message.toString();
+    }
+  });
+
+  function toggleLed(comodo) {
+    if (comodo === 'sala') {
+      estadoSala = !estadoSala;
+      const val = estadoSala ? "1" : "0";
+      client.publish(`${BANCADA}/casa/sala`, val);
+      document.getElementById('btn-sala').innerText = estadoSala ? "Desligar Sala" : "Ligar Sala";
+      document.getElementById('btn-sala').className = estadoSala ? "btn off" : "btn";
+      document.getElementById('dot-sala').className = estadoSala ? "status-dot active" : "status-dot";
+    } else if (comodo === 'cozinha') {
+      estadoCozinha = !estadoCozinha;
+      const val = estadoCozinha ? "1" : "0";
+      client.publish(`${BANCADA}/casa/cozinha`, val);
+      document.getElementById('btn-cozinha').innerText = estadoCozinha ? "Desligar Cozinha" : "Ligar Cozinha";
+      document.getElementById('btn-cozinha').className = estadoCozinha ? "btn off" : "btn";
+      document.getElementById('dot-cozinha').className = estadoCozinha ? "status-dot active" : "status-dot";
+    }
+  }
+
+  function updateQuarto(val) {
+    document.getElementById('pwm-val').innerText = val;
+    document.getElementById('dot-quarto').className = val > 0 ? "status-dot active" : "status-dot";
+    client.publish(`${BANCADA}/casa/quarto`, val.toString());
+  }
+</script>
+</body>
+</html>
