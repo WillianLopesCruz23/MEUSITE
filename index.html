@@ -2,157 +2,93 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Central IoT - Casa Inteligente</title>
+  <title>Dashboard de Inspeção Geométrica IoT</title>
+  <!-- Biblioteca Paho MQTT para Navegador -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
   <style>
-    :root {
-      --bg: #e0f2fe;
-      --card-bg: #ffffff;
-      --primary: #0284c7;
-      --text: #1e293b;
-    }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      margin: 0;
-    }
-    h1 { color: #0369a1; margin-bottom: 5px; }
-    .subtitle { color: #64748b; margin-bottom: 25px; font-size: 0.9em; }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 900px;
+      text-align: center;
+      background-color: #eef2f5;
+      padding-top: 60px;
     }
     .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: inline-block;
+      width: 380px;
+      padding: 30px;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     }
-    .status-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: #cbd5e1;
-      margin-bottom: 10px;
-      transition: background 0.3s;
+    h2 {
+      color: #333;
+      margin-bottom: 5px;
     }
-    .status-dot.active { background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
-    .btn-group { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
-    button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
+    p {
+      color: #666;
+      font-size: 14px;
+    }
+    .status-box {
+      font-size: 22px;
       font-weight: bold;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      background-color: #6c757d;
+      transition: all 0.3s ease;
     }
-    .btn-on { background-color: #0284c7; color: white; }
-    .btn-off { background-color: #f1f5f9; color: #475569; }
-    button:hover { opacity: 0.85; }
-    input[type=range] { width: 100%; margin-top: 15px; }
-    .sensor-val { font-size: 2.5em; font-weight: bold; color: #0284c7; margin: 10px 0; }
+    /* Estilização dinâmica por geometria */
+    .quadrado { background-color: #28a745; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4); }
+    .circulo  { background-color: #007bff; box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4); }
+    .triangulo{ background-color: #fd7e14; box-shadow: 0 4px 12px rgba(253, 126, 20, 0.4); }
+    .nenhum   { background-color: #dc3545; box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4); }
   </style>
 </head>
 <body>
 
-  <h1>Central IoT de Iluminação</h1>
-  <div class="subtitle">Conectado via MQTT (HiveMQ Cloud)</div>
-
-  <div class="container">
-    <!-- Sala -->
-    <div class="card">
-      <div id="dot-sala" class="status-dot"></div>
-      <h3>🛋️ Sala (Pino 8)</h3>
-      <div class="btn-group">
-        <button class="btn-on" onclick="sendCmd('sala', '1')">Ligar</button>
-        <button class="btn-off" onclick="sendCmd('sala', '0')">Desligar</button>
-      </div>
-    </div>
-
-    <!-- Quarto -->
-    <div class="card">
-      <div id="dot-quarto" class="status-dot"></div>
-      <h3>🛏️ Quarto (Pino 10)</h3>
-      <div class="btn-group">
-        <button class="btn-on" onclick="sendCmd('quarto', '1')">Ligar</button>
-        <button class="btn-off" onclick="sendCmd('quarto', '0')">Desligar</button>
-      </div>
-      <input type="range" min="0" max="255" value="0" onchange="sendPWM(this.value)">
-      <span>Dimmer: <span id="pwm-val">0</span>%</span>
-    </div>
-
-    <!-- Cozinha -->
-    <div class="card">
-      <div id="dot-cozinha" class="status-dot"></div>
-      <h3>🍳 Cozinha (Pino 13)</h3>
-      <div class="btn-group">
-        <button class="btn-on" onclick="sendCmd('cozinha', '1')">Ligar</button>
-        <button class="btn-off" onclick="sendCmd('cozinha', '0')">Desligar</button>
-      </div>
-    </div>
-
-    <!-- Telemetria Analógica -->
-    <div class="card">
-      <h3>📈 Leitura do Sensor (A0)</h3>
-      <div id="sensor-display" class="sensor-val">--</div>
-      <small>Atualização contínua via MQTT</small>
-    </div>
+  <div class="card">
+    <h2>Inspeção Geométrica</h2>
+    <p>Monitoramento IoT via HiveMQ WebSocket</p>
+    <div id="status" class="status-box nenhum">Aguardando peça...</div>
   </div>
 
   <script>
-    // 🚨 USE O MESMO PREFIXO DEFINIDO NO SCRIPT PYTHON
-    const PREFIXO = "minha_bancada_123";
+    // Conexão WSS (WebSocket Seguro) com o Broker HiveMQ na porta 8884
+    const client = new Paho.MQTT.Client("broker.hivemq.com", 8884, "web_client_" + Math.random());
 
-    const client = new Paho.MQTT.Client("broker.hivemq.com", Number(8000), "web_" + Math.random().toString(16).substr(2, 8));
-
-    client.onConnectionLost = (responseObject) => {
+    client.onConnectionLost = function (responseObject) {
       console.log("Conexão perdida: " + responseObject.errorMessage);
     };
 
-    client.onMessageArrived = (message) => {
-      if (message.destinationName === `${PREFIXO}/casa/sensor`) {
-        document.getElementById("sensor-display").innerText = message.payloadString;
+    client.onMessageArrived = function (message) {
+      const statusDiv = document.getElementById("status");
+      const forma = message.payloadString;
+
+      if (forma === "QUADRADO") {
+        statusDiv.innerText = "Forma: Quadrado";
+        statusDiv.className = "status-box quadrado";
+      } else if (forma === "CIRCULO") {
+        statusDiv.innerText = "Forma: Círculo";
+        statusDiv.className = "status-box circulo";
+      } else if (forma === "TRIANGULO") {
+        statusDiv.innerText = "Forma: Triângulo";
+        statusDiv.className = "status-box triangulo";
+      } else {
+        statusDiv.innerText = "Sem Peça / Desconhecida";
+        statusDiv.className = "status-box nenhum";
       }
     };
 
+    // Ativa SSL para compatibilidade com o HTTPS do GitHub Pages
     client.connect({
-      onSuccess: () => {
-        console.log("Conectado ao Broker MQTT via WebSockets");
-        client.subscribe(`${PREFIXO}/casa/sensor`);
+      useSSL: true,
+      onSuccess: function () {
+        console.log("Conectado ao HiveMQ via WebSocket Seguro!");
+        client.subscribe("escola/inspecao/geometria");
       }
     });
-
-    function sendCmd(comodo, valor) {
-      const topic = `${PREFIXO}/casa/${comodo}/set`;
-      const message = new Paho.MQTT.Message(valor);
-      message.destinationName = topic;
-      client.send(message);
-
-      const dot = document.getElementById(`dot-${comodo}`);
-      if (dot) {
-        if (valor === '1') dot.classList.add('active');
-        else dot.classList.remove('active');
-      }
-    }
-
-    function sendPWM(val) {
-      document.getElementById('pwm-val').innerText = Math.round((val / 255) * 100);
-      const message = new Paho.MQTT.Message("PWM:" + val);
-      message.destinationName = `${PREFIXO}/casa/quarto/set`;
-      client.send(message);
-    }
   </script>
 </body>
 </html>
+
